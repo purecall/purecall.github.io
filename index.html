@@ -262,6 +262,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/z3学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="purecall">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="purecall's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/16/z3学习/" itemprop="url">z3学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T21:38:17+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>安装好后进入z3目录下，<code>source ~/z3/bin/activate</code></p>
+<p>照着官网教程学习下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line">p = Bool(<span class="string">'p'</span>)</span><br><span class="line">q = Bool(<span class="string">'q'</span>)</span><br><span class="line">r = Bool(<span class="string">'r'</span>)</span><br><span class="line">solve(Implies(p,q),r==Not(q),And(Not(p),r))</span><br></pre></td></tr></table></figure>
+<p>结果<code>[q = False, p = False, r = True]</code></p>
+<p>这里Implies是离散数学中的蕴含式，只有(1,0)-&gt;0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line">x = Int(<span class="string">'x'</span>)</span><br><span class="line">y = Int(<span class="string">'y'</span>)</span><br><span class="line"><span class="keyword">print</span> simplify(x + y + <span class="number">2</span>*x + <span class="number">3</span>)</span><br><span class="line"><span class="keyword">print</span> simplify(x &lt; y + x + <span class="number">2</span>)</span><br><span class="line"><span class="keyword">print</span> simplify(And(x + <span class="number">1</span> &gt;= <span class="number">3</span>,x**<span class="number">2</span> + x**<span class="number">2</span> + y**<span class="number">2</span> + <span class="number">2</span> &gt;= <span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<p>simplify函数简化表达式（我猜可能类似于编译优化中的策略？）</p>
+<p><code>3 + 3*x + y
+Not(y &lt;= -2)
+And(x &gt;= 2, 2*x**2 + y**2 &gt;= 3)</code></p>
+<p>多项式与布尔代数的结合</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line">p = Bool(<span class="string">'p'</span>)</span><br><span class="line">x = Real(<span class="string">'x'</span>)</span><br><span class="line">solve(Or(x &lt; <span class="number">5</span>,x &gt; <span class="number">10</span>),Or(p, x**<span class="number">2</span> == <span class="number">2</span>),Not(p))</span><br></pre></td></tr></table></figure>
+<p>结果<code>[x = -1.4142135623?, p = False]</code></p>
+<p><img src="/2018/12/16/z3学习/z3_p0.png" alt="图片失踪了"></p>
+<p>这样的求解是不行的，因为这不是线性的约束条件</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/24/hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -423,7 +557,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
