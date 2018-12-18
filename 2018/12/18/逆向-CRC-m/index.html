@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="purecall&#39;s Blog">
 <meta property="og:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/E:/github/purecall.github.io/source/_posts/1.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/E:/github/purecall.github.io/source/_posts/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/2.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/E:/github/purecall.github.io/source/_posts/3.png">
-<meta property="og:updated_time" content="2018-12-18T14:44:51.612Z">
+<meta property="og:updated_time" content="2018-12-18T14:47:09.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向 CRC-m">
 <meta name="twitter:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/E:/github/purecall.github.io/source/_posts/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/1.png">
 
 
 
@@ -359,9 +359,9 @@
 <h1 id="CRC直接移位算法-以CRC-8为例"><a href="#CRC直接移位算法-以CRC-8为例" class="headerlink" title="CRC直接移位算法(以CRC-8为例)"></a>CRC直接移位算法(以CRC-8为例)</h1><h2 id="改进1"><a href="#改进1" class="headerlink" title="改进1"></a>改进1</h2><p>回想迭代过程，当余数首位为0时，会直接再左移一位，直到首位为1，图中$g_k$表示余数</p>
 <p>也可以表示为，每次迭代，根据余数的首位决定与之运算的二进制码的值，记作b</p>
 <p>若首位为1，b为hex(1021)；若首位为0，b为0</p>
-<p><img src="/2018/12/18/逆向-CRC-m/E:/github/purecall.github.io/source/_posts/1.png" alt="图片"></p>
+<p><img src="/2018/12/18/逆向-CRC-m/1.png" alt="图片"></p>
 <h2 id="改进2"><a href="#改进2" class="headerlink" title="改进2"></a>改进2</h2><p>每次迭代，$g_k$的首位将会被移除（根据首位决定b的值），因为生成多项式对应二进制串的首位是1，因此只需考虑第2位后计算即可，这样就可以舍弃h的首位。比如CRC-8的h是111010101，b只需是11010101</p>
-<p><img src="/2018/12/18/逆向-CRC-m/E:/github/purecall.github.io/source/_posts/2.png" alt="图片"></p>
+<p><img src="/2018/12/18/逆向-CRC-m/2.png" alt="图片"></p>
 <h2 id="改进3"><a href="#改进3" class="headerlink" title="改进3"></a>改进3</h2><p>每次迭代，受到影响的是$g_k$的前m位(CRC-m)，所以构建一个m位的寄存器，此寄存器储存$g_k$的前m位。</p>
 <p>每次迭代计算时先将S的首位抛弃，再将寄存器左移一位，同时将数据流g的下一位加入寄存器。</p>
 <p><em>至于为什么要先给出代码，再给出算法分析…是因为我是写了代码才理解这个过程的</em></p>
