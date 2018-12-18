@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/1.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/2.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/3.png">
-<meta property="og:updated_time" content="2018-12-18T14:24:11.563Z">
+<meta property="og:updated_time" content="2018-12-18T14:33:17.469Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向 CRC32">
 <meta name="twitter:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
@@ -373,8 +373,7 @@
 <p>4次迭代对B23来说，实际是与b1,b2,b3,b4进行了异或运算</p>
 <p>即 <code>B23 = B23 xor b1 xor b2 xor b3 xor b4</code> ，亦即 <code>B23 = B23 xor b&#39;</code> </p>
 <p>根据XOR性质，因此CRC运算满足<strong>结合律</strong>和<strong>交换律</strong></p>
-<p>解释如下：</p>
-<p><del>关于上面那张带红色的图，我TM看了半天才看懂是什么意思</del></p>
+<h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><p><del>关于上面那张带红色的图，我TM看了半天才看懂是什么意思</del></p>
 <p>图中模拟了4次迭代的过程，每次右移一位，S’相较S被划去了首位。b的值始终是前八位（和红色没关系），并且取值只有2种：00000000和11010101，$b_1,b_2,b_3,b_4$才是红色的那块。</p>
 <p>如果B1的第一位为1，那么b为11010101000(11位)，则$b_1$ (红)为b的后8位也就是10101000；若B1第一位为0则b1为00000000，也就是说，<strong>b1由B1的第一位决定</strong>。</p>
 <p>同理，$b_2$到$b_4$也是由B1的剩下三位决定的，注意第k+1层的S是由第k层的S’和b生成的，也就是说，根据B1四位决定的$b_1$到$b_4$，<code>S初值中的B23 = B23 xor b1 xor b2 xor b3 xor b4</code>。既然$b_1$到$b_4$是由B1的16种情况可以确定下来的，那么根据B1就可以求出b’，其中<code>b&#39; = b1 xor b2 xor b3 xor b4</code>，于是可以建表，省去这四次迭代过程而直接使B23 xor b了。</p>
@@ -546,7 +545,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-16"><span class="nav-number">1.</span> <span class="nav-text">CRC-16</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算实例"><span class="nav-number">1.1.</span> <span class="nav-text">计算实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-32"><span class="nav-number">2.</span> <span class="nav-text">CRC-32</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些概念"><span class="nav-number">3.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-8"><span class="nav-number">4.</span> <span class="nav-text">CRC-8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC直接移位算法-以CRC-8为例"><span class="nav-number">5.</span> <span class="nav-text">CRC直接移位算法(以CRC-8为例)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#改进1"><span class="nav-number">5.1.</span> <span class="nav-text">改进1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进2"><span class="nav-number">5.2.</span> <span class="nav-text">改进2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进3"><span class="nav-number">5.3.</span> <span class="nav-text">改进3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC直接查表法"><span class="nav-number">6.</span> <span class="nav-text">CRC直接查表法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-16"><span class="nav-number">1.</span> <span class="nav-text">CRC-16</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算实例"><span class="nav-number">1.1.</span> <span class="nav-text">计算实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-32"><span class="nav-number">2.</span> <span class="nav-text">CRC-32</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些概念"><span class="nav-number">3.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-8"><span class="nav-number">4.</span> <span class="nav-text">CRC-8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC直接移位算法-以CRC-8为例"><span class="nav-number">5.</span> <span class="nav-text">CRC直接移位算法(以CRC-8为例)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#改进1"><span class="nav-number">5.1.</span> <span class="nav-text">改进1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进2"><span class="nav-number">5.2.</span> <span class="nav-text">改进2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进3"><span class="nav-number">5.3.</span> <span class="nav-text">改进3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC直接查表法"><span class="nav-number">6.</span> <span class="nav-text">CRC直接查表法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解释"><span class="nav-number">6.1.</span> <span class="nav-text">解释</span></a></li></ol></li></ol></div>
             
 
           </div>
