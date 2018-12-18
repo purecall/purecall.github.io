@@ -82,19 +82,19 @@
 <meta name="description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
 <meta name="keywords" content="RE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逆向 CRC32">
-<meta property="og:url" content="http://yoursite.com/2018/12/18/CRC-m/index.html">
+<meta property="og:title" content="逆向 CRC-m">
+<meta property="og:url" content="http://yoursite.com/2018/12/18/逆向 CRC-m/index.html">
 <meta property="og:site_name" content="purecall&#39;s Blog">
 <meta property="og:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/1.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/2.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/3.png">
-<meta property="og:updated_time" content="2018-12-18T14:33:17.469Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向%20CRC-m/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向%20CRC-m/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向%20CRC-m/3.png">
+<meta property="og:updated_time" content="2018-12-18T14:41:00.001Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逆向 CRC32">
+<meta name="twitter:title" content="逆向 CRC-m">
 <meta name="twitter:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/18/CRC-m/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/18/逆向%20CRC-m/1.png">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/18/CRC-m/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/18/逆向 CRC-m/">
 
 
 
 
 
-  <title>逆向 CRC32 | purecall's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>逆向 CRC-m | purecall's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -267,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/CRC-m/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/逆向 CRC-m/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="purecall">
@@ -284,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">逆向 CRC32</h1>
+          <h1 class="post-title" itemprop="name headline">逆向 CRC-m</h1>
         
 
         <div class="post-meta">
@@ -359,14 +359,14 @@
 <h1 id="CRC直接移位算法-以CRC-8为例"><a href="#CRC直接移位算法-以CRC-8为例" class="headerlink" title="CRC直接移位算法(以CRC-8为例)"></a>CRC直接移位算法(以CRC-8为例)</h1><h2 id="改进1"><a href="#改进1" class="headerlink" title="改进1"></a>改进1</h2><p>回想迭代过程，当余数首位为0时，会直接再左移一位，直到首位为1，图中$g_k$表示余数</p>
 <p>也可以表示为，每次迭代，根据余数的首位决定与之运算的二进制码的值，记作b</p>
 <p>若首位为1，b为hex(1021)；若首位为0，b为0</p>
-<p><img src="/2018/12/18/CRC-m/1.png" alt="图片"></p>
+<p><img src="/2018/12/18/逆向 CRC-m/1.png" alt="图片"></p>
 <h2 id="改进2"><a href="#改进2" class="headerlink" title="改进2"></a>改进2</h2><p>每次迭代，$g_k$的首位将会被移除（根据首位决定b的值），因为生成多项式对应二进制串的首位是1，因此只需考虑第2位后计算即可，这样就可以舍弃h的首位。比如CRC-8的h是111010101，b只需是11010101</p>
-<p><img src="/2018/12/18/CRC-m/2.png" alt="图片"></p>
+<p><img src="/2018/12/18/逆向 CRC-m/2.png" alt="图片"></p>
 <h2 id="改进3"><a href="#改进3" class="headerlink" title="改进3"></a>改进3</h2><p>每次迭代，受到影响的是$g_k$的前m位(CRC-m)，所以构建一个m位的寄存器，此寄存器储存$g_k$的前m位。</p>
 <p>每次迭代计算时先将S的首位抛弃，再将寄存器左移一位，同时将数据流g的下一位加入寄存器。</p>
 <p><em>至于为什么要先给出代码，再给出算法分析…是因为我是写了代码才理解这个过程的</em></p>
 <h1 id="CRC直接查表法"><a href="#CRC直接查表法" class="headerlink" title="CRC直接查表法"></a>CRC直接查表法</h1><p>举个例子，将24位的数据组成1个block，这样g就被分成6个block</p>
-<p><img src="/2018/12/18/CRC-m/3.png" alt="图片"></p>
+<p><img src="/2018/12/18/逆向 CRC-m/3.png" alt="图片"></p>
 <p>经过4次迭代，B1被移出了寄存器，这里我们只关心4次迭代对B2和B3产生了什么影响</p>
 <p>注意表中红色部分，先给出一个定义：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">B23 = 0011 1010</span><br><span class="line">b1  = 0000 0000</span><br><span class="line">b2  = 0101 0100</span><br><span class="line">b3  = 1010 1010</span><br><span class="line">b4  = 1101 0101</span><br><span class="line">b&apos;  = b1 xor b2 xor b3 xor b4</span><br></pre></td></tr></table></figure>
