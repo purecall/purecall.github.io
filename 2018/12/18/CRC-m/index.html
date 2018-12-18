@@ -79,21 +79,22 @@
 
 
 
-<meta name="description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC16生成多项式:$x^{16}+x^{12}+x^{5}+1$ 二进制串:1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#inc">
+<meta name="description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
 <meta name="keywords" content="RE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向 CRC32">
-<meta property="og:url" content="http://yoursite.com/2018/12/18/逆向-CRC32/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/12/18/CRC-m/index.html">
 <meta property="og:site_name" content="purecall&#39;s Blog">
-<meta property="og:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC16生成多项式:$x^{16}+x^{12}+x^{5}+1$ 二进制串:1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#inc">
+<meta property="og:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC32/1.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC32/2.png">
-<meta property="og:updated_time" content="2018-12-18T07:00:39.466Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/18/CRC-m/3.png">
+<meta property="og:updated_time" content="2018-12-18T14:24:11.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向 CRC32">
-<meta name="twitter:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC16生成多项式:$x^{16}+x^{12}+x^{5}+1$ 二进制串:1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#inc">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/18/逆向-CRC32/1.png">
+<meta name="twitter:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/18/CRC-m/1.png">
 
 
 
@@ -123,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/18/逆向-CRC32/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/18/CRC-m/">
 
 
 
@@ -266,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/逆向-CRC32/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/CRC-m/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="purecall">
@@ -339,12 +340,12 @@
 
       
         <p>基本的就不说了，CTF逆向中常见的是CRC16和CRC32</p>
-<h1 id="CRC16"><a href="#CRC16" class="headerlink" title="CRC16"></a>CRC16</h1><p>生成多项式:$x^{16}+x^{12}+x^{5}+1$</p>
-<p>二进制串:<code>1 0001 0000 0010 0001</code><br>故HEX为 <code>0x1 1021</code> </p>
+<h1 id="CRC-16"><a href="#CRC-16" class="headerlink" title="CRC-16"></a>CRC-16</h1><p>生成多项式: $x^{16}+x^{12}+x^{5}+1$</p>
+<p>二进制串: <code>1 0001 0000 0010 0001</code><br>故HEX为 <code>0x1 1021</code> </p>
 <h2 id="计算实例"><a href="#计算实例" class="headerlink" title="计算实例"></a>计算实例</h2><p>计算字符’a’的CRC16校验码</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="comment">//以CRC16  0x1021  为例</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">short</span> crc = <span class="string">'a'</span>;	<span class="comment">//计算字符a的crc16校验码</span></span><br><span class="line">	<span class="comment">//左移8位，和手动计算一样，相当于右边直接补了8个0</span></span><br><span class="line">	crc &lt;&lt;= <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//计算8次，在右边添加的 8个0 经过循环后即是结果</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;	</span><br><span class="line">		<span class="comment">//如果最高位是1的话需要计算， 如果不是直接左移(左移可以想象成补0)</span></span><br><span class="line">         <span class="comment">//参考手算的图示，crc左移相当于取余数进行计算</span></span><br><span class="line">		<span class="keyword">if</span> ((crc &amp; <span class="number">0x8000</span>) != <span class="number">0</span>) &#123;</span><br><span class="line">			crc &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">			crc = crc ^ <span class="number">0x1021</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			crc &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%#x"</span>, (BYTE)crc);	<span class="comment">// 0x87</span></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里仅仅是计算字符a的CRC16校验码</p>
-<h1 id="CRC32"><a href="#CRC32" class="headerlink" title="CRC32"></a>CRC32</h1><p>生成多项式:</p>
+<p>这里计算字符a的CRC16校验码，仅仅给出了代码，其中细节可以参见下文以CRC-8举例的一些说明</p>
+<h1 id="CRC-32"><a href="#CRC-32" class="headerlink" title="CRC-32"></a>CRC-32</h1><p>生成多项式:</p>
 <script type="math/tex; mode=display">x^{32}+x^{26}+x^{23}+x^{22}+x^{16}+x^{12}+x^{11}+x^{10}+x^{8}+x^{7}+x^{5}+x^{4}+x^{2}+x^{1}+1</script><p>二进制串:<code>1 0000 0100 1100 0001 0001 1101 1011 0111</code><br>故HEX为 <code>0x1 04C11DB7</code></p>
 <p>（另一个CRC为<code>1 1110 1101 1011 1000 1000 0011 0010 0000 = 0x1 EDB8 8320</code>）</p>
 <h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><p>真正的应用的CRC算法都做了一些改动，增加2个概念：<strong>余数初始值</strong>、<strong>结果异或值</strong></p>
@@ -352,12 +353,36 @@
 <p>结果异或值，其余计算完成后将CRC寄存器的值在与这个值进行异或作为最后的校验值</p>
 <p>CRC16: 余数初始值 0x0000 结果异或值 0x0000 （上文程序中两处0x0000没有体现）</p>
 <p>CRC32: 余数初始值0xFFFFFFFF 结果异或值 0xFFFFFFFF</p>
-<h1 id="优化-以CRC-8为例"><a href="#优化-以CRC-8为例" class="headerlink" title="优化(以CRC-8为例)"></a>优化(以CRC-8为例)</h1><h2 id="改进1"><a href="#改进1" class="headerlink" title="改进1"></a>改进1</h2><p>回想迭代过程，当余数首位为0时，会直接再左移一位，直到首位为1，图中$g_k$表示余数</p>
+<h1 id="CRC-8"><a href="#CRC-8" class="headerlink" title="CRC-8"></a>CRC-8</h1><p>生成多项式有很多，这里选一种: $x^8+x^7+x^6+x^4+x^2+1$</p>
+<p>二进制串: <code>1 1101 0101</code></p>
+<p>故HEX为 0x1 0xD5</p>
+<h1 id="CRC直接移位算法-以CRC-8为例"><a href="#CRC直接移位算法-以CRC-8为例" class="headerlink" title="CRC直接移位算法(以CRC-8为例)"></a>CRC直接移位算法(以CRC-8为例)</h1><h2 id="改进1"><a href="#改进1" class="headerlink" title="改进1"></a>改进1</h2><p>回想迭代过程，当余数首位为0时，会直接再左移一位，直到首位为1，图中$g_k$表示余数</p>
 <p>也可以表示为，每次迭代，根据余数的首位决定与之运算的二进制码的值，记作b</p>
 <p>若首位为1，b为hex(1021)；若首位为0，b为0</p>
-<p><img src="/2018/12/18/逆向-CRC32/1.png" alt="图片"></p>
-<h2 id="改进2"><a href="#改进2" class="headerlink" title="改进2"></a>改进2</h2><p>每次迭代，$g_k$的首位将会被移除，因为生成多项式对应二进制串的首位是1，因此只需考虑第2位后计算即可，这样就可以舍弃h的首位。比如CRC-8的h是111010101，b只需是11010101</p>
-<p><img src="/2018/12/18/逆向-CRC32/2.png" alt="图片"></p>
+<p><img src="/2018/12/18/CRC-m/1.png" alt="图片"></p>
+<h2 id="改进2"><a href="#改进2" class="headerlink" title="改进2"></a>改进2</h2><p>每次迭代，$g_k$的首位将会被移除（根据首位决定b的值），因为生成多项式对应二进制串的首位是1，因此只需考虑第2位后计算即可，这样就可以舍弃h的首位。比如CRC-8的h是111010101，b只需是11010101</p>
+<p><img src="/2018/12/18/CRC-m/2.png" alt="图片"></p>
+<h2 id="改进3"><a href="#改进3" class="headerlink" title="改进3"></a>改进3</h2><p>每次迭代，受到影响的是$g_k$的前m位(CRC-m)，所以构建一个m位的寄存器，此寄存器储存$g_k$的前m位。</p>
+<p>每次迭代计算时先将S的首位抛弃，再将寄存器左移一位，同时将数据流g的下一位加入寄存器。</p>
+<p><em>至于为什么要先给出代码，再给出算法分析…是因为我是写了代码才理解这个过程的</em></p>
+<h1 id="CRC直接查表法"><a href="#CRC直接查表法" class="headerlink" title="CRC直接查表法"></a>CRC直接查表法</h1><p>举个例子，将24位的数据组成1个block，这样g就被分成6个block</p>
+<p><img src="/2018/12/18/CRC-m/3.png" alt="图片"></p>
+<p>经过4次迭代，B1被移出了寄存器，这里我们只关心4次迭代对B2和B3产生了什么影响</p>
+<p>注意表中红色部分，先给出一个定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">B23 = 0011 1010</span><br><span class="line">b1  = 0000 0000</span><br><span class="line">b2  = 0101 0100</span><br><span class="line">b3  = 1010 1010</span><br><span class="line">b4  = 1101 0101</span><br><span class="line">b&apos;  = b1 xor b2 xor b3 xor b4</span><br></pre></td></tr></table></figure>
+<p>4次迭代对B23来说，实际是与b1,b2,b3,b4进行了异或运算</p>
+<p>即 <code>B23 = B23 xor b1 xor b2 xor b3 xor b4</code> ，亦即 <code>B23 = B23 xor b&#39;</code> </p>
+<p>根据XOR性质，因此CRC运算满足<strong>结合律</strong>和<strong>交换律</strong></p>
+<p>解释如下：</p>
+<p><del>关于上面那张带红色的图，我TM看了半天才看懂是什么意思</del></p>
+<p>图中模拟了4次迭代的过程，每次右移一位，S’相较S被划去了首位。b的值始终是前八位（和红色没关系），并且取值只有2种：00000000和11010101，$b_1,b_2,b_3,b_4$才是红色的那块。</p>
+<p>如果B1的第一位为1，那么b为11010101000(11位)，则$b_1$ (红)为b的后8位也就是10101000；若B1第一位为0则b1为00000000，也就是说，<strong>b1由B1的第一位决定</strong>。</p>
+<p>同理，$b_2$到$b_4$也是由B1的剩下三位决定的，注意第k+1层的S是由第k层的S’和b生成的，也就是说，根据B1四位决定的$b_1$到$b_4$，<code>S初值中的B23 = B23 xor b1 xor b2 xor b3 xor b4</code>。既然$b_1$到$b_4$是由B1的16种情况可以确定下来的，那么根据B1就可以求出b’，其中<code>b&#39; = b1 xor b2 xor b3 xor b4</code>，于是可以建表，省去这四次迭代过程而直接使B23 xor b了。</p>
+<p>到这里我才理解了各种博客出现的这句话….</p>
+<blockquote>
+<p>b2是由B1迭代1次后的第2位决定（既是由B1的第1和第2位决定），同理,b3和b4都是由B1决定</p>
+</blockquote>
+<p><del>TMD直接说 <strong>b2由B1的第二位决定不就好了嘛…</strong></del></p>
 
       
     </div>
@@ -521,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC16"><span class="nav-number">1.</span> <span class="nav-text">CRC16</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算实例"><span class="nav-number">1.1.</span> <span class="nav-text">计算实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC32"><span class="nav-number">2.</span> <span class="nav-text">CRC32</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些概念"><span class="nav-number">3.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化-以CRC-8为例"><span class="nav-number">4.</span> <span class="nav-text">优化(以CRC-8为例)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#改进1"><span class="nav-number">4.1.</span> <span class="nav-text">改进1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进2"><span class="nav-number">4.2.</span> <span class="nav-text">改进2</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-16"><span class="nav-number">1.</span> <span class="nav-text">CRC-16</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算实例"><span class="nav-number">1.1.</span> <span class="nav-text">计算实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-32"><span class="nav-number">2.</span> <span class="nav-text">CRC-32</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些概念"><span class="nav-number">3.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-8"><span class="nav-number">4.</span> <span class="nav-text">CRC-8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC直接移位算法-以CRC-8为例"><span class="nav-number">5.</span> <span class="nav-text">CRC直接移位算法(以CRC-8为例)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#改进1"><span class="nav-number">5.1.</span> <span class="nav-text">改进1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进2"><span class="nav-number">5.2.</span> <span class="nav-text">改进2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进3"><span class="nav-number">5.3.</span> <span class="nav-text">改进3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC直接查表法"><span class="nav-number">6.</span> <span class="nav-text">CRC直接查表法</span></a></li></ol></div>
             
 
           </div>
