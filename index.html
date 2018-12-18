@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="C++/pwn">
+<meta name="description" content="C++/pwn/RE">
 <meta property="og:type" content="website">
 <meta property="og:title" content="purecall&#39;s Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="purecall&#39;s Blog">
-<meta property="og:description" content="C++/pwn">
+<meta property="og:description" content="C++/pwn/RE">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="purecall&#39;s Blog">
-<meta name="twitter:description" content="C++/pwn">
+<meta name="twitter:description" content="C++/pwn/RE">
 
 
 
@@ -347,10 +347,12 @@
 <p>结果异或值，其余计算完成后将CRC寄存器的值在与这个值进行异或作为最后的校验值</p>
 <p>CRC16: 余数初始值 0x0000 结果异或值 0x0000 （上文程序中两处0x0000没有体现）</p>
 <p>CRC32: 余数初始值0xFFFFFFFF 结果异或值 0xFFFFFFFF</p>
-<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>回想迭代过程，当余数首位为0时，会直接再左移一位，直到首位为1，图中$g_k$表示余数</p>
+<h1 id="优化-以CRC-8为例"><a href="#优化-以CRC-8为例" class="headerlink" title="优化(以CRC-8为例)"></a>优化(以CRC-8为例)</h1><h2 id="改进1"><a href="#改进1" class="headerlink" title="改进1"></a>改进1</h2><p>回想迭代过程，当余数首位为0时，会直接再左移一位，直到首位为1，图中$g_k$表示余数</p>
 <p>也可以表示为，每次迭代，根据余数的首位决定与之运算的二进制码的值，记作b</p>
 <p>若首位为1，b为hex(1021)；若首位为0，b为0</p>
 <p><img src="/2018/12/18/逆向-CRC32/1.png" alt="图片"></p>
+<h2 id="改进2"><a href="#改进2" class="headerlink" title="改进2"></a>改进2</h2><p>每次迭代，$g_k$的首位将会被移除，因为生成多项式对应二进制串的首位是1，因此只需考虑第2位后计算即可，这样就可以舍弃h的首位。比如CRC-8的h是111010101，b只需是11010101</p>
+<p><img src="/2018/12/18/逆向-CRC32/2.png" alt="图片"></p>
 
           
         
@@ -739,7 +741,7 @@
               <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="purecall">
             
               <p class="site-author-name" itemprop="name">purecall</p>
-              <p class="site-description motion-element" itemprop="description">C++/pwn</p>
+              <p class="site-description motion-element" itemprop="description">C++/pwn/RE</p>
           </div>
 
           <nav class="site-state motion-element">
