@@ -7,7 +7,7 @@
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -124,7 +124,7 @@
 
 
 
-  <title>purecall's Blog</title>
+  <title>purecall's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -143,7 +143,7 @@
     
   
 
-  <div class="container sidebar-position-left 
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -334,22 +334,22 @@
         
           
             <p>基本的就不说了，CTF逆向中常见的是CRC16和CRC32</p>
-<p>CRC16生成多项式:$x^{16}+x^{12}+x^{5}+1$</p>
+<h1 id="CRC16"><a href="#CRC16" class="headerlink" title="CRC16"></a>CRC16</h1><p>生成多项式:$x^{16}+x^{12}+x^{5}+1$</p>
 <p>二进制串:<code>1 0001 0000 0010 0001</code><br>故HEX为 <code>0x1 1021</code> </p>
-<p>计算字符’a’的CRC16校验码</p>
+<h2 id="计算实例"><a href="#计算实例" class="headerlink" title="计算实例"></a>计算实例</h2><p>计算字符’a’的CRC16校验码</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="comment">//以CRC16  0x1021  为例</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">short</span> crc = <span class="string">'a'</span>;	<span class="comment">//计算字符a的crc16校验码</span></span><br><span class="line">	<span class="comment">//左移8位，和手动计算一样，相当于右边直接补了8个0</span></span><br><span class="line">	crc &lt;&lt;= <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//计算8次，在右边添加的 8个0 经过循环后即是结果</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;	</span><br><span class="line">		<span class="comment">//如果最高位是1的话需要计算， 如果不是直接左移(左移可以想象成补0)</span></span><br><span class="line">         <span class="comment">//参考手算的图示，crc左移相当于取余数进行计算</span></span><br><span class="line">		<span class="keyword">if</span> ((crc &amp; <span class="number">0x8000</span>) != <span class="number">0</span>) &#123;</span><br><span class="line">			crc &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">			crc = crc ^ <span class="number">0x1021</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			crc &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%#x"</span>, (BYTE)crc);	<span class="comment">// 0x87</span></span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里仅仅是计算字符a的CRC16校验码</p>
-<p>CRC32的生成多项式:  $x^{32}+x^{26}+x^{23}+x^{22}+x^{16}+x^{12}+x^{11}+x^{10}+x^{8}+x^{7}+x^{5}+x^{4}+x^{2}+x^{1}+1$</p>
-<p>二进制串:<code>1 0000 0100 1100 0001 0001 1101 1011 0111</code><br>故HEX为 <code>0x1 04C11DB7</code></p>
+<h1 id="CRC32"><a href="#CRC32" class="headerlink" title="CRC32"></a>CRC32</h1><p>生成多项式:</p>
+<script type="math/tex; mode=display">x^{32}+x^{26}+x^{23}+x^{22}+x^{16}+x^{12}+x^{11}+x^{10}+x^{8}+x^{7}+x^{5}+x^{4}+x^{2}+x^{1}+1</script><p>二进制串:<code>1 0000 0100 1100 0001 0001 1101 1011 0111</code><br>故HEX为 <code>0x1 04C11DB7</code></p>
 <p>（另一个CRC为<code>1 1110 1101 1011 1000 1000 0011 0010 0000 = 0x1 EDB8 8320</code>）</p>
-<p>真正的应用的CRC算法都做了一些改动，增加2个概念：<strong>余数初始值</strong>、<strong>结果异或值</strong></p>
+<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><p>真正的应用的CRC算法都做了一些改动，增加2个概念：<strong>余数初始值</strong>、<strong>结果异或值</strong></p>
 <p>余数初始值，在计算CRC值的开始，给CRC寄存器一个初始值…</p>
 <p>结果异或值，其余计算完成后将CRC寄存器的值在与这个值进行异或作为最后的校验值</p>
 <p>CRC16: 余数初始值 0x0000 结果异或值 0x0000 （上文程序中两处0x0000没有体现）</p>
 <p>CRC32: 余数初始值0xFFFFFFFF 结果异或值 0xFFFFFFFF</p>
-<p>回想迭代过程，当余数首位为0时，会直接再左移一位，直到首位为1</p>
-<p>也可以表示为，每次迭代，根据余数的首位决定与之运算的二进制码的值</p>
-<p>若首位为1，此值为hex(1021)；若首位为0，此值为0</p>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>回想迭代过程，当余数首位为0时，会直接再左移一位，直到首位为1，图中$g_k$表示余数</p>
+<p>也可以表示为，每次迭代，根据余数的首位决定与之运算的二进制码的值，记作b</p>
+<p>若首位为1，b为hex(1021)；若首位为0，b为0</p>
 <p><img src="/2018/12/18/逆向-CRC32/1.png" alt="图片"></p>
 
           
@@ -1002,6 +1002,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
 
   
 
