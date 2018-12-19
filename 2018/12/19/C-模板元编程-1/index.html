@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,模板元编程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="介绍一些基本技巧 元函数与type_traits类型元函数考虑如下情形：我们希望进行类型映射F，F(int)=unsigned int，F(long)=unsigned long 这种映射可以看成函数，只不过输入和输出都是类型而已 123456789101112131415template&amp;lt;typename T&amp;gt;	//输入(模板参数)struct Fun_ &amp;#123; using t">
+<meta name="keywords" content="C++,模板元编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++模板元编程-1">
+<meta property="og:url" content="http://yoursite.com/2018/12/19/C-模板元编程-1/index.html">
+<meta property="og:site_name" content="purecall&#39;s Blog">
+<meta property="og:description" content="介绍一些基本技巧 元函数与type_traits类型元函数考虑如下情形：我们希望进行类型映射F，F(int)=unsigned int，F(long)=unsigned long 这种映射可以看成函数，只不过输入和输出都是类型而已 123456789101112131415template&amp;lt;typename T&amp;gt;	//输入(模板参数)struct Fun_ &amp;#123; using t">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-19T03:02:04.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++模板元编程-1">
+<meta name="twitter:description" content="介绍一些基本技巧 元函数与type_traits类型元函数考虑如下情形：我们希望进行类型映射F，F(int)=unsigned int，F(long)=unsigned long 这种映射可以看成函数，只不过输入和输出都是类型而已 123456789101112131415template&amp;lt;typename T&amp;gt;	//输入(模板参数)struct Fun_ &amp;#123; using t">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/19/C-模板元编程-1/">
+
+
+
+
+
+  <title>C++模板元编程-1 | purecall's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">purecall's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/C-模板元编程-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="purecall">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="purecall's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++模板元编程-1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T10:14:21+08:00">
+                2018-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>介绍一些基本技巧</p>
+<h1 id="元函数与type-traits"><a href="#元函数与type-traits" class="headerlink" title="元函数与type_traits"></a>元函数与type_traits</h1><h2 id="类型元函数"><a href="#类型元函数" class="headerlink" title="类型元函数"></a>类型元函数</h2><p>考虑如下情形：我们希望进行类型映射F，F(int)=unsigned int，F(long)=unsigned long</p>
+<p>这种映射可以看成函数，只不过输入和输出都是类型而已</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;	<span class="comment">//输入(模板参数)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fun_</span> &#123;</span> <span class="keyword">using</span> type = T; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;		<span class="comment">//特化（映射）</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fun_</span>&lt;int&gt; &#123;</span> <span class="keyword">using</span> type = <span class="keyword">unsigned</span> <span class="keyword">int</span>; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;		<span class="comment">//特化（映射）</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fun_</span>&lt;long&gt; &#123;</span> <span class="keyword">using</span> type = <span class="keyword">unsigned</span> <span class="keyword">long</span>; &#125;;</span><br><span class="line"></span><br><span class="line">Fun_&lt;<span class="keyword">int</span>&gt;::type num = <span class="number">3</span>;	<span class="comment">//unsigned int num = 3;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> Fun = <span class="keyword">typename</span> Fun_&lt;T&gt;::type;</span><br><span class="line"></span><br><span class="line">Fun&lt;<span class="keyword">int</span>&gt; num1 = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Fun不是一个标准的元函数，因为它没有内嵌类型type。但是它具有输入(T)，输出(Fun<t>)，也明确定义了映射规则，因此可以视作元函数。</t></p>
+</blockquote>
+<p>事实上，代码中展示的也是C++标准库中定义元函数的常用方式，比如<code>std::enable_if</code>和<code>std::enable_if_t</code>，前者就像Fun_一样是内嵌了type类型的元函数；后者像Fun一样是基于前者给出的定义，用于简化使用。</p>
+<h3 id="命名方式"><a href="#命名方式" class="headerlink" title="命名方式"></a>命名方式</h3><p>此处约定如下：如果函数返回值需要用某种依赖型的名称表示，那么函数被命名为XXX_的形式（以下划线为后缀）；反之非依赖型则不包含下划线</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">int</span> a,<span class="keyword">int</span> b&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Add_</span> &#123;</span>	<span class="comment">//依赖型</span></span><br><span class="line">	<span class="keyword">constexpr</span> <span class="keyword">static</span> <span class="keyword">int</span> value = a + b;</span><br><span class="line">	<span class="comment">//value静态变量，依赖于Add_存在</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">int</span> a,<span class="keyword">int</span> b&gt;	<span class="comment">//非依赖型</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> Add = a + b;	</span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> x1 = Add_&lt;<span class="number">2</span>, <span class="number">3</span>&gt;::value;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> x2 = Add&lt;<span class="number">2</span>, <span class="number">3</span>&gt;;</span><br></pre></td></tr></table></figure>
+<h2 id="type-traits"><a href="#type-traits" class="headerlink" title="type_traits"></a>type_traits</h2><p>type_traits是由boost库引入的，由C++11纳入其中，头文件<type_traits>，实现了类型变换、类型比较与判断等功能。</type_traits></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;type_traits&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::remove_reference&lt;<span class="keyword">int</span>&amp;&gt;::type num1 = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="keyword">remove_reference_t</span>&lt;<span class="keyword">int</span>&amp;&gt; num2 = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="模板型模板参数-amp-容器模板"><a href="#模板型模板参数-amp-容器模板" class="headerlink" title="模板型模板参数&amp;容器模板"></a>模板型模板参数&amp;容器模板</h1><p>C++元函数可以操作的数据包含3类：<strong>数值</strong>、<strong>类型</strong>与<strong>模板</strong>，统一被称作<strong>元数据</strong>，以示与运行期所操作的数据的区别。</p>
+<h2 id="模板作为元函数的输入"><a href="#模板作为元函数的输入" class="headerlink" title="模板作为元函数的输入"></a>模板作为元函数的输入</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;type_traits&gt;</span></span></span><br><span class="line"><span class="keyword">template</span>&lt; <span class="keyword">template</span>&lt;<span class="keyword">typename</span>&gt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>, <span class="title">typename</span> <span class="title">T2</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">Fun_</span> &#123;</span></span><br><span class="line">	<span class="keyword">using</span> type = <span class="keyword">typename</span> T1&lt;T2&gt;::type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt; <span class="keyword">template</span>&lt;<span class="keyword">typename</span>&gt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>, <span class="title">typename</span> <span class="title">T2</span> &gt;</span></span><br><span class="line"><span class="class"><span class="title">using</span> <span class="title">Fun</span> = <span class="title">typename</span> <span class="title">Fun_</span>&lt;T1, T2&gt;:</span>:type;</span><br><span class="line"></span><br><span class="line">Fun&lt;<span class="built_in">std</span>::remove_reference, <span class="keyword">int</span>&amp;&gt; num1 = <span class="number">3</span>;</span><br><span class="line">Fun_&lt;<span class="built_in">std</span>::remove_reference, <span class="keyword">int</span>&amp;&gt;::type num2 = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<p>其中元函数Fun接收两个参数：一个模板和一个类型</p>
+<p>从函数式编程的角度来说，Fun是一个典型的<strong>高阶函数</strong>，即以另一个函数为输入参数的函数</p>
+<p>总结为数学表达式 $Fun(T_1,t_2)=T_1(t_2)$</p>
+<p>而模板作为元函数的输出相关内容在实际中使用较少，就不介绍了<del>（其实是我不会）</del></p>
+<h2 id="容器模板"><a href="#容器模板" class="headerlink" title="容器模板"></a>容器模板</h2><p>我们需要的是一个容器：用来保存数组中的每个元素，元素可以是数值、类型或模板。典型的容器仅能保存相同类型的数据，但已经可以满足绝大多数的使用需求。</p>
+<p>C++11中引入了<strong>变长参数模板(variadic template)</strong>，借由此实现我们的容器</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">int</span>... Vals&gt; <span class="class"><span class="keyword">struct</span> <span class="title">IntContainer</span>;</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Types&gt; <span class="class"><span class="keyword">struct</span> <span class="title">TypeContainer</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>&gt;<span class="class"><span class="keyword">class</span>... <span class="title">T</span>&gt;<span class="title">struct</span> <span class="title">TemplateCont</span>;</span></span><br><span class="line"><span class="comment">//可以存放模板作为其元素，每个模板元素可以接收一个类型作为参数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>...&gt;<span class="class"><span class="keyword">class</span>... <span class="title">T</span>&gt;<span class="title">struct</span> <span class="title">TemplateCont2</span>;</span></span><br><span class="line"><span class="comment">//同样以模板作为其元素，但每个模板可以放置多个类型信息</span></span><br></pre></td></tr></table></figure>
+<p>这些语句实际上只是声明而非定义，事实上这是一个元编程中的一个惯用法：仅在必要时才引入定义，其他的时候直接使用声明即可。</p>
+<h1 id="顺序、分支与循环"><a href="#顺序、分支与循环" class="headerlink" title="顺序、分支与循环"></a>顺序、分支与循环</h1><h2 id="顺序执行"><a href="#顺序执行" class="headerlink" title="顺序执行"></a>顺序执行</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/模板元编程/" rel="tag"># 模板元编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/18/逆向-CRC-m/" rel="next" title="逆向 CRC-m">
+                <i class="fa fa-chevron-left"></i> 逆向 CRC-m
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="purecall">
+            
+              <p class="site-author-name" itemprop="name">purecall</p>
+              <p class="site-description motion-element" itemprop="description">C++/pwn/RE</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#元函数与type-traits"><span class="nav-number">1.</span> <span class="nav-text">元函数与type_traits</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型元函数"><span class="nav-number">1.1.</span> <span class="nav-text">类型元函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命名方式"><span class="nav-number">1.1.1.</span> <span class="nav-text">命名方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#type-traits"><span class="nav-number">1.2.</span> <span class="nav-text">type_traits</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板型模板参数-amp-容器模板"><span class="nav-number">2.</span> <span class="nav-text">模板型模板参数&amp;容器模板</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板作为元函数的输入"><span class="nav-number">2.1.</span> <span class="nav-text">模板作为元函数的输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器模板"><span class="nav-number">2.2.</span> <span class="nav-text">容器模板</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#顺序、分支与循环"><span class="nav-number">3.</span> <span class="nav-text">顺序、分支与循环</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序执行"><span class="nav-number">3.1.</span> <span class="nav-text">顺序执行</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">purecall</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
