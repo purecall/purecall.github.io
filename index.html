@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/C-模板元编程-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/C-函数式编程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="purecall">
@@ -281,7 +281,189 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/19/C-模板元编程-1/" itemprop="url">C++模板元编程-1</a></h1>
+                <a class="post-title-link" href="/2018/12/24/C-函数式编程/" itemprop="url">C++函数式编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-24T13:40:26+08:00">
+                2018-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于我自己也是在学习的过程中，并没有形成具体的函数式思维，因此可能记录的学习过程比较乱</p>
+<h1 id="标准库的基本使用"><a href="#标准库的基本使用" class="headerlink" title="标准库的基本使用"></a>标准库的基本使用</h1><h2 id="std-pair"><a href="#std-pair" class="headerlink" title="std::pair"></a>std::pair</h2><blockquote>
+<p> <strong>std::pair</strong>是标准库中所有<strong>键值数据(key-value data)</strong>的默认返回类型，是快速使用标准库的第一把钥匙</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>,<span class="title">class</span> <span class="title">T2</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">ostream</span>&amp; <span class="title">operator</span>&lt;&lt;(ostream&amp; out, const pair&lt;T1, T2&gt;&amp; _) &#123;</span></span><br><span class="line"><span class="class">	return out &lt;&lt; "(" &lt;&lt; _.first &lt;&lt; "," &lt;&lt; _.second &lt;&lt; ")" &lt;&lt; endl;</span></span><br><span class="line"><span class="class">&#125;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">int main(int argc, char**argv) &#123;</span></span><br><span class="line"><span class="class">	std::string names[3] = &#123; "lambda","C++","pwn" &#125;;</span></span><br><span class="line"><span class="class">	int scores[3] = &#123; 3,4,5 &#125;;</span></span><br><span class="line"><span class="class">	std::pair &lt;std::string, int&gt; p0 = std::make_pair(names[1], scores[1]);</span></span><br><span class="line"><span class="class">	//p0 = (C++,4)</span></span><br><span class="line"><span class="class">	auto p1 = std::make_pair(names[2], scores[2]);</span></span><br><span class="line"><span class="class">	//p1 = (pwn,5)</span></span><br><span class="line"><span class="class">	auto p2 = std::make_pair(names[1], std::ref(scores[1]));</span></span><br><span class="line"><span class="class">	scores[1] += 10;</span></span><br><span class="line"><span class="class">	//p0不变</span></span><br><span class="line"><span class="class">	//p2 = (C++,14)     std::ref()</span></span><br><span class="line"><span class="class">	cout &lt;&lt; p0 &lt;&lt; p1 &lt;&lt; p2;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">	return 0;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="std-tuple"><a href="#std-tuple" class="headerlink" title="std::tuple"></a>std::tuple</h2><p>更一般地，<strong>元组(tuple)</strong>可以把多个不同数据类型的实例绑定到一个实例上</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;tuple&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> names[<span class="number">3</span>] = &#123; <span class="string">"C++"</span>,<span class="string">"lambda"</span>,<span class="string">"reverse"</span> &#125;;</span><br><span class="line">	<span class="keyword">char</span> ranks[<span class="number">3</span>] = &#123; <span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span> &#125;;</span><br><span class="line">	<span class="keyword">int</span> scores[<span class="number">3</span>] = &#123; <span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span> &#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">auto</span> student0 = <span class="built_in">std</span>::make_tuple(names[<span class="number">0</span>], ranks[<span class="number">0</span>], scores[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"student0  name:"</span> &lt;&lt; <span class="built_in">std</span>::get&lt;<span class="number">0</span>&gt;(student0)</span><br><span class="line">		&lt;&lt; <span class="string">", rank:"</span> &lt;&lt; <span class="built_in">std</span>::get&lt;<span class="number">1</span>&gt;(student0)</span><br><span class="line">		&lt;&lt; <span class="string">", score:"</span> &lt;&lt; <span class="built_in">std</span>::get&lt;<span class="number">2</span>&gt;(student0) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="comment">//student0  name:C++, rank:A, score:5</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> s;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">auto</span> student1 = <span class="built_in">std</span>::make_tuple(names[<span class="number">1</span>], ranks[<span class="number">1</span>], scores[<span class="number">1</span>]);</span><br><span class="line">	<span class="built_in">std</span>::tie(s, c, i) = student0;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"student1  name:"</span> &lt;&lt; s</span><br><span class="line">		&lt;&lt; <span class="string">", rank:"</span> &lt;&lt; c</span><br><span class="line">		&lt;&lt; <span class="string">", score:"</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="comment">//student1  name:C++, rank:A, score:5</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	auto student2 = std::tie(names[2],ranks[2],scores[2]);</span></span><br><span class="line"><span class="comment">	auto[_1, _2, _3] = student2;	// C++17 structured binding</span></span><br><span class="line"><span class="comment">	std::cout &lt;&lt; "student2  name:" &lt;&lt; _1</span></span><br><span class="line"><span class="comment">		&lt;&lt; ", rank:" &lt;&lt; _2</span></span><br><span class="line"><span class="comment">		&lt;&lt; ", score:" &lt;&lt; _3 &lt;&lt; std::endl;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	g++-7 main.cpp -std=c++17</span></span><br><span class="line"><span class="comment">	输出：student2  name:reverse, rank:C, score:7</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>tuple</strong>的组装和拆包任务分别由两个函数来担当</p>
+<p><code>std::make_tuple</code>创建一个元组，<code>std::get</code>获取确定位置的数据</p>
+<p>注意到，<code>std::tie</code>既可以组装元组，也可以对一个元组进行拆包</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::tie(<span class="built_in">std</span>::ignore, <span class="built_in">std</span>::ignore, xxx) = student0;</span><br></pre></td></tr></table></figure>
+<p><code>std::ignore</code> 可以作为解包时的占位符</p>
+<blockquote>
+<p>auto[a,b,c]=xxx 是复制一份数据</p>
+<p>std::tie()默认会创建原变量的引用</p>
+</blockquote>
+<h2 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h2><p>基本的使用就不提了，考虑一下vector扩充内存的细节</p>
+<p>当反复push_back()一个元素时，一旦达到了上限，vector会把可用空间大小扩充为之前的k倍，一般为2或1.5，具体由编译器决定</p>
+<h1 id="lambda函数"><a href="#lambda函数" class="headerlink" title="lambda函数"></a>lambda函数</h1><h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>举个两个简单的例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> addition = [](<span class="keyword">int</span> _1, <span class="keyword">int</span> _2)-&gt;<span class="keyword">int</span> &#123; <span class="keyword">return</span> _1 + _2; &#125;;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;a = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span> &#125;;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;b = &#123; <span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span> &#125;;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, sz = a.size(); i &lt; sz; i++) &#123;</span><br><span class="line">		a[i] = addition(a[i], b[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span> e : a)<span class="built_in">cout</span> &lt;&lt; e &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要注意的是，addition并不是lambda函数的名字，它只是被附身了而已…lambda本身是没有名字的，因此不能简单地实现递归</p>
+<p>参数列表中的中括号，名为<strong>捕捉列表</strong>，用于捕捉当前lambda所在环境的变量</p>
+<p>参数列表之后有一个箭头，箭头后跟着返回值的类型</p>
+<p>最后，与函数声明完之后直接用大括号收尾不同，在这里可以暂时把lambda函数看做一个特殊的变量，所以最后用分号收尾</p>
+<p><code>auto a_alias = [capture](parameters)-&gt;return_type{...};</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> j = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">auto</span> by_val_lambda = [=] &#123; <span class="keyword">return</span> j + <span class="number">1</span>; &#125;;</span><br><span class="line">	<span class="keyword">auto</span> by_ref_lambda = [&amp;] &#123; <span class="keyword">return</span> j + <span class="number">1</span>; &#125;;</span><br><span class="line">	<span class="keyword">auto</span> print = [=] &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"print by val lambda: "</span> &lt;&lt; by_val_lambda() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"print by ref lambda: "</span> &lt;&lt; by_ref_lambda() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;;</span><br><span class="line">	print();</span><br><span class="line">	j += <span class="number">10</span>;</span><br><span class="line">	print();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print by val lambda: <span class="number">2</span></span><br><span class="line">print by ref lambda: <span class="number">2</span></span><br><span class="line">print by val lambda: <span class="number">2</span></span><br><span class="line">print by ref lambda: <span class="number">12</span>		<span class="comment">//引用传递</span></span><br></pre></td></tr></table></figure>
+<p>[=]表示按照<strong>值传递</strong>的方法捕捉父作用域的所有变量</p>
+<p>[&amp;]表示按照<strong>引用传递</strong>的方法捕捉父作用域的所有变量</p>
+<p>如果想要捕捉特定的变量，可以直接写[var]或[&amp;var]</p>
+<p>甚至可以捕捉this指针，如果父作用域存在的话</p>
+<blockquote>
+<p>lambda函数的出现减少了对命名空间的污染，也可以理解为增加了一种简单的局部函数的实现</p>
+<p>可以直接把函数写在main函数里，用函数指针来管理</p>
+</blockquote>
+<h2 id="lambda递归"><a href="#lambda递归" class="headerlink" title="lambda递归"></a>lambda递归</h2><p>计算阶乘</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::function&lt;<span class="keyword">int</span>(<span class="keyword">int</span>)&gt;fact;</span><br><span class="line">	fact = [&amp;fact](<span class="keyword">int</span> x)-&gt;<span class="keyword">int</span> &#123; <span class="keyword">return</span> x &lt;= <span class="number">1</span> ? x : x * fact(x - <span class="number">1</span>); &#125;;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; fact(<span class="number">5</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>lambda实现递归时，可以提前声明fact，然后再用[&amp;fact]捕获</p>
+<p>当右值赋给fact时，也就是fact函数指针被lambda”附身”，fact的值改变，那么fact的引用也对应改变</p>
+<p>以下为照抄部分：<a href="https://zhuanlan.zhihu.com/p/45430715" target="_blank" rel="noopener">链接</a></p>
+<p>准确地讲，上面<strong>根本不是</strong>lambda函数的递归调用，只是一般函数的递归而已</p>
+<p>想要实现lambda函数的递归调用，必须首先对<strong>Y-组合子</strong>有一定的了解</p>
+<p>简单地说，虽然lambda没有名字，但我们可以把它作为一个参数传递给更上层的函数调用</p>
+<p>熟悉函数式编程的话会想起<strong>不动点组合子</strong>，也就是构造一个函数，返回它的不动点</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">fix</span> :: (a -&gt; a) -&gt; a</span><br><span class="line"><span class="title">fix</span> f = <span class="keyword">let</span> &#123;x = f x&#125; <span class="keyword">in</span> x</span><br></pre></td></tr></table></figure>
+<p>抄不动了，我也不熟悉函数式啊…..但是直接用C++还是会写的…</p>
+<p>这里简单的写一个柯里化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> c_xor = [](<span class="keyword">char</span> _1)-&gt;<span class="keyword">auto</span>&#123;</span><br><span class="line">		<span class="keyword">return</span>[_1](<span class="keyword">char</span>  _2)-&gt;<span class="keyword">auto</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> [_1, _2](<span class="keyword">char</span> _3) &#123;</span><br><span class="line">				<span class="keyword">return</span> (<span class="keyword">char</span>)_1 ^ _2 ^ _3;</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以这样调用 <code>char c = c_xor(&#39;a&#39;)(&#39;b&#39;)(&#39;c&#39;);</code></p>
+<h1 id="函数式编程工具箱"><a href="#函数式编程工具箱" class="headerlink" title="函数式编程工具箱"></a>函数式编程工具箱</h1><h2 id="把函数看作一等公民"><a href="#把函数看作一等公民" class="headerlink" title="把函数看作一等公民"></a>把函数看作一等公民</h2><p>传统的 C++ 把<strong>承载数据的变量</strong>作为一等公民，这些变量享有以下权利：</p>
+<p>1、可以承载数据，也可以存在于更高级的数据结构中；</p>
+<p>2、可以作为右值参与计算、函数调用；</p>
+<p>3、可以作为左值参与赋值操作。</p>
+<p>那么，如果把<strong>函数</strong>也当做一等公民，那么，函数也应当享有以下的权利：</p>
+<p>1、函数就是数据，一个函数变量可以承载函数，也可以存在于更高级的数据结构中；</p>
+<p>2、可以作为右值参与计算，或参与更高级的函数调用；</p>
+<p>3、可以作为左值参与赋值操作。</p>
+<p>这里给一个简单计算器的例子来理解</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="built_in">std</span>::function&lt;<span class="keyword">double</span>(<span class="keyword">double</span>, <span class="keyword">double</span>)&gt; &gt; host;</span><br><span class="line">	host[<span class="string">'+'</span>] = [](<span class="keyword">double</span> a, <span class="keyword">double</span> b)-&gt;<span class="keyword">double</span> &#123; <span class="keyword">return</span> a + b; &#125;;</span><br><span class="line">	host[<span class="string">'-'</span>] = [](<span class="keyword">double</span> a, <span class="keyword">double</span> b)-&gt;<span class="keyword">double</span> &#123; <span class="keyword">return</span> a - b; &#125;;</span><br><span class="line">	host[<span class="string">'*'</span>] = [](<span class="keyword">double</span> a, <span class="keyword">double</span> b)-&gt;<span class="keyword">double</span> &#123; <span class="keyword">return</span> a * b; &#125;;</span><br><span class="line">	host[<span class="string">'/'</span>] = [](<span class="keyword">double</span> a, <span class="keyword">double</span> b)-&gt;<span class="keyword">double</span> &#123; <span class="keyword">return</span> a / b; &#125;;</span><br><span class="line">	host[<span class="string">'^'</span>] = [](<span class="keyword">double</span> a, <span class="keyword">double</span> b)-&gt;<span class="keyword">double</span> &#123; <span class="keyword">return</span> <span class="built_in">pow</span>(a, b); &#125;;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"1.1 + 2.2= "</span> &lt;&lt; host[<span class="string">'+'</span>](<span class="number">1.1</span>, <span class="number">2.2</span>) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// =&gt; 3.3</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"1.1 - 2.2= "</span> &lt;&lt; host[<span class="string">'-'</span>](<span class="number">1.1</span>, <span class="number">2.2</span>) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// =&gt; -1.1</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"1.1 * 2.2= "</span> &lt;&lt; host[<span class="string">'*'</span>](<span class="number">1.1</span>, <span class="number">2.2</span>) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// =&gt; 2.42</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"1.1 / 2.2= "</span> &lt;&lt; host[<span class="string">'/'</span>](<span class="number">1.1</span>, <span class="number">2.2</span>) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// =&gt; 0.5</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"1.1 ^ 2.2= "</span> &lt;&lt; host[<span class="string">'^'</span>](<span class="number">1.1</span>, <span class="number">2.2</span>) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// =&gt; 1.23329</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们使用了标准库提供的<code>std::map</code>来存储核心匹配关系，即一个运算符对应一个运算关系</p>
+<p>这时map存储的数据不再是数字，而是一个<strong>具体的函数</strong>，一种<strong>具体的运算方法</strong>，这就是刚刚提到的公民权利的第一条和第三条(‘+’作为一个函数载体，作为<strong>左值</strong>)</p>
+<p> 而第二条：作为<strong>右值</strong>参与计算或参与更高级的函数调用，根据以下的三个工具来理解</p>
+<h2 id="最基础的三个工具"><a href="#最基础的三个工具" class="headerlink" title="最基础的三个工具"></a>最基础的三个工具</h2><h3 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h3><h3 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h3><h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/C-模板元编程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="purecall">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="vct的演算纸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/19/C-模板元编程/" itemprop="url">C++模板元编程</a></h1>
         
 
         <div class="post-meta">
@@ -1003,7 +1185,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1016,7 +1198,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
