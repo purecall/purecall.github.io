@@ -262,136 +262,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/29/test/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="purecall">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="vct的演算纸">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/29/test/" itemprop="url">test</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-29T19:03:30+08:00">
-                2018-12-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/12/29/test/" class="leancloud_visitors" data-flag-title="test">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/28/C-右值引用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -577,6 +447,8 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="function">T* <span class="title">Instance</span><span class="params">(Args... args)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> T(<span class="built_in">std</span>::forward&lt;Args &gt;(args)…);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//原文代码，没有看懂，T是什么...</span></span><br></pre></td></tr></table></figure>
 <p>这个工厂函数的参数是右值引用类型，内部使用std::forward按照参数实际类型进行转发</p>
 <p>如果参数是右值，那么创建时自动匹配移动构造函数；如果是左值则匹配拷贝构造</p>
+<h1 id="万能的函数包装器"><a href="#万能的函数包装器" class="headerlink" title="万能的函数包装器"></a>万能的函数包装器</h1><p>右值引用、完美转发再结合可变模板参数，可以写一个万能的函数包装器，接受所有的函数，委托执行</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Function</span>, <span class="title">class</span>... <span class="title">Args</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">auto</span> <span class="title">FuncWrapper</span>(<span class="title">Function</span>&amp;&amp; <span class="title">f</span>, <span class="title">Args</span>&amp;&amp;... <span class="title">args</span>)</span></span><br><span class="line"><span class="class">-&gt; <span class="title">decltype</span>(<span class="title">f</span>(<span class="title">std</span>:</span>:forward&lt;Args&gt;(args)...)) &#123;</span><br><span class="line">	<span class="comment">//typedef decltype(f(std::forward&lt;Args&gt;(args)...)) ReturnType;</span></span><br><span class="line">	<span class="keyword">return</span> f(<span class="built_in">std</span>::forward&lt;Args&gt;(args)...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test0</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"void"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test2</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">test3</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> s1 + s2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	FuncWrapper(test0);  <span class="comment">// 没有返回值，打印1</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; FuncWrapper(test1) &lt;&lt; <span class="built_in">endl</span>; 	<span class="comment">// 返回1</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; FuncWrapper(test2, <span class="number">1</span>) &lt;&lt; <span class="built_in">endl</span>;	<span class="comment">// 返回1</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; FuncWrapper(test3, <span class="string">"aa"</span>, <span class="string">"bb"</span>) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 返回"aabb"</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -816,10 +688,13 @@
 <p>更好的写法，一个简单的柯里化尝试</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> c_xor = [](<span class="keyword">char</span> _1)-&gt;<span class="keyword">auto</span>&#123;</span><br><span class="line">		<span class="keyword">return</span>[_1](<span class="keyword">char</span>  _2)-&gt;<span class="keyword">auto</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> [_1, _2](<span class="keyword">char</span> _3) &#123;</span><br><span class="line">				<span class="keyword">return</span> _1 ^ _2 ^ _3;</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
 <p>可以这样调用 <code>char c = c_xor(&#39;a&#39;)(&#39;b&#39;)(&#39;c&#39;);</code></p>
-<h1 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h1><p>待学习<a href="https://zhuanlan.zhihu.com/p/46737243" target="_blank" rel="noopener">知乎专栏</a></p>
-<p>也是用变长模板参数定义柯里化规则，和《C++模板元编程实战》中的异类词典、policy有相似之处</p>
-<p>不过是真的难</p>
-
+<h1 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h1><p>我们不想为了柯里化而柯里化，把每一个函数的声明都写的十分冗长；也不想用<code>std::bind</code>每次都把所有参数写出来，形式不够简洁</p>
+<p>两个方案</p>
+<blockquote>
+<p>1、需要额外手动维护一个记录参数的容器</p>
+<p>2、利用变长模板进行函数包装</p>
+</blockquote>
+<h2 id="把元组应用到函数上"><a href="#把元组应用到函数上" class="headerlink" title="把元组应用到函数上"></a>把元组应用到函数上</h2>
           
         
       
@@ -1703,7 +1578,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

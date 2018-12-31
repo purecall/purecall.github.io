@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="vct的演算纸">
 <meta property="og:description" content="由于我自己也是在学习的过程中，并没有形成具体的函数式思维，因此可能记录的学习过程比较乱 标准库的基本使用std::pair  std::pair是标准库中所有键值数据(key-value data)的默认返回类型，是快速使用标准库的第一把钥匙  123456789101112131415161718192021222324252627#include&amp;lt;iostream&amp;gt;#include">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-28T02:22:27.000Z">
+<meta property="og:updated_time" content="2018-12-31T01:18:42.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++函数式编程">
 <meta name="twitter:description" content="由于我自己也是在学习的过程中，并没有形成具体的函数式思维，因此可能记录的学习过程比较乱 标准库的基本使用std::pair  std::pair是标准库中所有键值数据(key-value data)的默认返回类型，是快速使用标准库的第一把钥匙  123456789101112131415161718192021222324252627#include&amp;lt;iostream&amp;gt;#include">
@@ -450,10 +450,13 @@
 <p>更好的写法，一个简单的柯里化尝试</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> c_xor = [](<span class="keyword">char</span> _1)-&gt;<span class="keyword">auto</span>&#123;</span><br><span class="line">		<span class="keyword">return</span>[_1](<span class="keyword">char</span>  _2)-&gt;<span class="keyword">auto</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> [_1, _2](<span class="keyword">char</span> _3) &#123;</span><br><span class="line">				<span class="keyword">return</span> _1 ^ _2 ^ _3;</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
 <p>可以这样调用 <code>char c = c_xor(&#39;a&#39;)(&#39;b&#39;)(&#39;c&#39;);</code></p>
-<h1 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h1><p>待学习<a href="https://zhuanlan.zhihu.com/p/46737243" target="_blank" rel="noopener">知乎专栏</a></p>
-<p>也是用变长模板参数定义柯里化规则，和《C++模板元编程实战》中的异类词典、policy有相似之处</p>
-<p>不过是真的难</p>
-
+<h1 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h1><p>我们不想为了柯里化而柯里化，把每一个函数的声明都写的十分冗长；也不想用<code>std::bind</code>每次都把所有参数写出来，形式不够简洁</p>
+<p>两个方案</p>
+<blockquote>
+<p>1、需要额外手动维护一个记录参数的容器</p>
+<p>2、利用变长模板进行函数包装</p>
+</blockquote>
+<h2 id="把元组应用到函数上"><a href="#把元组应用到函数上" class="headerlink" title="把元组应用到函数上"></a>把元组应用到函数上</h2>
       
     </div>
     
@@ -577,7 +580,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -623,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#标准库的基本使用"><span class="nav-number">1.</span> <span class="nav-text">标准库的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#std-pair"><span class="nav-number">1.1.</span> <span class="nav-text">std::pair</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-tuple"><span class="nav-number">1.2.</span> <span class="nav-text">std::tuple</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-vector"><span class="nav-number">1.3.</span> <span class="nav-text">std::vector</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lambda函数"><span class="nav-number">2.</span> <span class="nav-text">lambda函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">2.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda递归"><span class="nav-number">2.2.</span> <span class="nav-text">lambda递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数式编程工具箱"><span class="nav-number">3.</span> <span class="nav-text">函数式编程工具箱</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#把函数看作一等公民"><span class="nav-number">3.1.</span> <span class="nav-text">把函数看作一等公民</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本工具"><span class="nav-number">3.2.</span> <span class="nav-text">基本工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射"><span class="nav-number">3.2.1.</span> <span class="nav-text">映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#筛选"><span class="nav-number">3.2.2.</span> <span class="nav-text">筛选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折叠"><span class="nav-number">3.2.3.</span> <span class="nav-text">折叠</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的部分应用"><span class="nav-number">3.3.</span> <span class="nav-text">函数的部分应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#柯里化"><span class="nav-number">4.</span> <span class="nav-text">柯里化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#标准库的基本使用"><span class="nav-number">1.</span> <span class="nav-text">标准库的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#std-pair"><span class="nav-number">1.1.</span> <span class="nav-text">std::pair</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-tuple"><span class="nav-number">1.2.</span> <span class="nav-text">std::tuple</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-vector"><span class="nav-number">1.3.</span> <span class="nav-text">std::vector</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lambda函数"><span class="nav-number">2.</span> <span class="nav-text">lambda函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">2.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda递归"><span class="nav-number">2.2.</span> <span class="nav-text">lambda递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数式编程工具箱"><span class="nav-number">3.</span> <span class="nav-text">函数式编程工具箱</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#把函数看作一等公民"><span class="nav-number">3.1.</span> <span class="nav-text">把函数看作一等公民</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本工具"><span class="nav-number">3.2.</span> <span class="nav-text">基本工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射"><span class="nav-number">3.2.1.</span> <span class="nav-text">映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#筛选"><span class="nav-number">3.2.2.</span> <span class="nav-text">筛选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折叠"><span class="nav-number">3.2.3.</span> <span class="nav-text">折叠</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的部分应用"><span class="nav-number">3.3.</span> <span class="nav-text">函数的部分应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#柯里化"><span class="nav-number">4.</span> <span class="nav-text">柯里化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#把元组应用到函数上"><span class="nav-number">4.1.</span> <span class="nav-text">把元组应用到函数上</span></a></li></ol></li></ol></div>
             
 
           </div>
