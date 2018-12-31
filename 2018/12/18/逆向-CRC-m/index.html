@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/1.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/2.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/18/逆向-CRC-m/3.png">
-<meta property="og:updated_time" content="2018-12-20T10:14:34.000Z">
+<meta property="og:updated_time" content="2018-12-31T04:06:47.918Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向 CRC-m">
 <meta name="twitter:description" content="基本的就不说了，CTF逆向中常见的是CRC16和CRC32 CRC-16生成多项式: $x^{16}+x^{12}+x^{5}+1$ 二进制串: 1 0001 0000 0010 0001故HEX为 0x1 1021  计算实例计算字符’a’的CRC16校验码 123456789101112131415161718192021222324252627#include&amp;lt;stdio.h&amp;gt;#">
@@ -395,10 +395,8 @@
 <p>CRC-8的table中有$2^4$个数据，那么CRC-32的table中有$2^8=256$个数据。</p>
 <p>这也是CRC-32中一次性处理4字节数据的原因（CRC-8一次处理8个bits也就是1字节）</p>
 </blockquote>
-<p><strong>还有很多没搞清楚的地方，比如改进后的算法中，余数初始值的设立原因？为什么len为0以后还要迭代位宽次？还有什么网络传输时高位低位的，什么镜像查表，fuck</strong></p>
-<p><strong>我个人感觉这个算法在不断优化的过程中，可能 未必保证结果的一致性</strong></p>
-<p><strong>总而言之</strong></p>
-<h1 id="老子弃坑了"><a href="#老子弃坑了" class="headerlink" title="老子弃坑了"></a>老子弃坑了</h1>
+<p>还有很多没搞清楚的地方，想弄清楚整个发展历程实在是太困难了</p>
+<h1 id="暂时弃坑"><a href="#暂时弃坑" class="headerlink" title="暂时弃坑"></a>暂时弃坑</h1>
       
     </div>
     
@@ -568,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-16"><span class="nav-number">1.</span> <span class="nav-text">CRC-16</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算实例"><span class="nav-number">1.1.</span> <span class="nav-text">计算实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-32"><span class="nav-number">2.</span> <span class="nav-text">CRC-32</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些概念"><span class="nav-number">3.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-8"><span class="nav-number">4.</span> <span class="nav-text">CRC-8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC直接移位算法-以CRC-8为例"><span class="nav-number">5.</span> <span class="nav-text">CRC直接移位算法(以CRC-8为例)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#改进1"><span class="nav-number">5.1.</span> <span class="nav-text">改进1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进2"><span class="nav-number">5.2.</span> <span class="nav-text">改进2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进3"><span class="nav-number">5.3.</span> <span class="nav-text">改进3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#直接查表法"><span class="nav-number">6.</span> <span class="nav-text">直接查表法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解释"><span class="nav-number">6.1.</span> <span class="nav-text">解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRC-32-直接查表法代码实现"><span class="nav-number">6.2.</span> <span class="nav-text">CRC-32 直接查表法代码实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#老子弃坑了"><span class="nav-number">7.</span> <span class="nav-text">老子弃坑了</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-16"><span class="nav-number">1.</span> <span class="nav-text">CRC-16</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算实例"><span class="nav-number">1.1.</span> <span class="nav-text">计算实例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-32"><span class="nav-number">2.</span> <span class="nav-text">CRC-32</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些概念"><span class="nav-number">3.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC-8"><span class="nav-number">4.</span> <span class="nav-text">CRC-8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRC直接移位算法-以CRC-8为例"><span class="nav-number">5.</span> <span class="nav-text">CRC直接移位算法(以CRC-8为例)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#改进1"><span class="nav-number">5.1.</span> <span class="nav-text">改进1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进2"><span class="nav-number">5.2.</span> <span class="nav-text">改进2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进3"><span class="nav-number">5.3.</span> <span class="nav-text">改进3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#直接查表法"><span class="nav-number">6.</span> <span class="nav-text">直接查表法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解释"><span class="nav-number">6.1.</span> <span class="nav-text">解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRC-32-直接查表法代码实现"><span class="nav-number">6.2.</span> <span class="nav-text">CRC-32 直接查表法代码实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#暂时弃坑"><span class="nav-number">7.</span> <span class="nav-text">暂时弃坑</span></a></li></ol></div>
             
 
           </div>
