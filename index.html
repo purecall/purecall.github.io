@@ -351,6 +351,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:1087  </span><br><span class="line">export https_proxy=http://127.0.0.1:1087</span><br><span class="line"></span><br><span class="line">git config --global http.https://github.com.proxy socks5://127.0.0.1:1086</span><br><span class="line">git config --global https.https://github.com.proxy socks5://127.0.0.1:1086</span><br></pre></td></tr></table></figure>
 <p>还有就是终端只需要一个depot_tools目录的环境变量….现在知道了…都是暂时的</p>
 <p> <code>export PATH=&quot;$PATH:/Users/vct/depot_tools&quot;</code> </p>
+<p>用mac编译的第一天再次以失败告终</p>
+<p><code>../../third_party/blink/renderer/platform/shared_buffer.h:38:10: fatal error: &#39;third_party/blink/renderer/platform/wtf/std_lib_extras.h&#39; file not found</code></p>
+<p>明天尝试编译低版本的</p>
 
           
         
