@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="第一天git代理和终端代理的问题 12345export http_proxy=http://127.0.0.1:1087  export https_proxy=http://127.0.0.1:1087git config --global http.https://github.com.proxy socks5://127.0.0.1:1087git config --global http">
+<meta name="description" content="第一天git代理和终端代理的问题 12345export http_proxy=http://127.0.0.1:1087  export https_proxy=http://127.0.0.1:1087git config --global http.https://github.com.proxy socks5://127.0.0.1:1086git config --global http">
 <meta name="keywords" content="chromium">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mac编译chromium">
 <meta property="og:url" content="http://yoursite.com/2019/01/01/mac编译chromium/index.html">
 <meta property="og:site_name" content="vct的演算纸">
-<meta property="og:description" content="第一天git代理和终端代理的问题 12345export http_proxy=http://127.0.0.1:1087  export https_proxy=http://127.0.0.1:1087git config --global http.https://github.com.proxy socks5://127.0.0.1:1087git config --global http">
+<meta property="og:description" content="第一天git代理和终端代理的问题 12345export http_proxy=http://127.0.0.1:1087  export https_proxy=http://127.0.0.1:1087git config --global http.https://github.com.proxy socks5://127.0.0.1:1086git config --global http">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-01T07:42:27.788Z">
+<meta property="og:updated_time" content="2019-01-01T08:16:49.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac编译chromium">
-<meta name="twitter:description" content="第一天git代理和终端代理的问题 12345export http_proxy=http://127.0.0.1:1087  export https_proxy=http://127.0.0.1:1087git config --global http.https://github.com.proxy socks5://127.0.0.1:1087git config --global http">
+<meta name="twitter:description" content="第一天git代理和终端代理的问题 12345export http_proxy=http://127.0.0.1:1087  export https_proxy=http://127.0.0.1:1087git config --global http.https://github.com.proxy socks5://127.0.0.1:1086git config --global http">
 
 
 
@@ -342,7 +342,7 @@
 
       
         <h1 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h1><p>git代理和终端代理的问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:1087  </span><br><span class="line">export https_proxy=http://127.0.0.1:1087</span><br><span class="line"></span><br><span class="line">git config --global http.https://github.com.proxy socks5://127.0.0.1:1087</span><br><span class="line">git config --global https.https://github.com.proxy socks5://127.0.0.1:1087</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://127.0.0.1:1087  </span><br><span class="line">export https_proxy=http://127.0.0.1:1087</span><br><span class="line"></span><br><span class="line">git config --global http.https://github.com.proxy socks5://127.0.0.1:1086</span><br><span class="line">git config --global https.https://github.com.proxy socks5://127.0.0.1:1086</span><br></pre></td></tr></table></figure>
 <p>还有就是终端只需要一个depot_tools目录的环境变量….现在知道了…都是暂时的</p>
 <p> <code>export PATH=&quot;$PATH:/Users/vct/depot_tools&quot;</code> </p>
 
