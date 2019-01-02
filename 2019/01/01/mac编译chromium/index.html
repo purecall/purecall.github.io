@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="vct的演算纸">
 <meta property="og:description" content="mac用起来是真的流畅，触摸板的精确度比以前的电脑高了几十倍… hexo 三条命令基本都是秒完成 pd里开虚拟机，win10启动2秒，ubuntu1秒，同时开2个win10都不卡….不过有时候windows抽风会让风扇转起来… git代理和终端代理的问题 12345export http_proxy=http://127.0.0.1:1087  export https_proxy=http://">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-02T07:23:07.772Z">
+<meta property="og:updated_time" content="2019-01-02T12:49:36.029Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac编译chromium">
 <meta name="twitter:description" content="mac用起来是真的流畅，触摸板的精确度比以前的电脑高了几十倍… hexo 三条命令基本都是秒完成 pd里开虚拟机，win10启动2秒，ubuntu1秒，同时开2个win10都不卡….不过有时候windows抽风会让风扇转起来… git代理和终端代理的问题 12345export http_proxy=http://127.0.0.1:1087  export https_proxy=http://">
@@ -366,6 +366,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">../../third_party/blink/renderer/platform/graphics/image.h:39:10: fatal error: &apos;third_party/blink/renderer/platform/graphics/paint/paint_image.h&apos; file not found</span><br><span class="line">#include &quot;third_party/blink/renderer/platform/graphics/paint/paint_image.h&quot;</span><br></pre></td></tr></table></figure>
 <p>我疯了。。。</p>
 <p>我重新fetch好了吧。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: cannot open file &apos;/Users/vct/chromium/src/out/Default/../../third_party/llvm-build/Release+Asserts/lib/clang/8.0.0/include/limits.h&apos;: Too many open files</span><br></pre></td></tr></table></figure>
+<p>忍不住满口脏话…</p>
+<p>我不编译了行了吧…</p>
+<p>浪费2天，官网就不能维护一下工具吗！！！</p>
+<p><code>rm -rf chromium/</code></p>
 
       
     </div>
@@ -405,6 +410,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/02/ubuntu的疑难杂症记录/" rel="prev" title="ubuntu的疑难杂症记录">
+                ubuntu的疑难杂症记录 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -477,7 +486,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
