@@ -344,7 +344,15 @@
       
         
           
-            
+            <h1 id="snap安装失败导致apt报错"><a href="#snap安装失败导致apt报错" class="headerlink" title="snap安装失败导致apt报错"></a>snap安装失败导致apt报错</h1><ol>
+<li><p>sudo gedit /var/lib/dpkg/info/snapd.prerm<br>在第一行后面插入一行： exit 0</p>
+</li>
+<li><p>然后卸载： dpkg —purge —force-all snapd.</p>
+</li>
+</ol>
+<p>发现还是有问题   sudo aptitude remove snapd   解决</p>
+<h1 id="安装angr"><a href="#安装angr" class="headerlink" title="安装angr"></a>安装angr</h1><p><a href="http://pwn4.fun/2017/06/06/angr使用说明/" target="_blank" rel="noopener">不要看官网，根据这篇…</a></p>
+
           
         
       
@@ -1921,7 +1929,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1937,6 +1945,20 @@
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友链
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://home.uns3t.cn" title="uns3t" target="_blank">uns3t</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
