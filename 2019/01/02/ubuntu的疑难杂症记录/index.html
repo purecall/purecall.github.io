@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="snap安装失败导致apt报错 sudo gedit /var/lib/dpkg/info/snapd.prerm在第一行后面插入一行： exit 0  然后卸载： dpkg —purge —force-all snapd.   发现还是有问题   sudo aptitude remove snapd   解决 安装angr不要看官网，根据这篇…">
+<meta name="description" content="snap安装失败导致apt报错 sudo gedit /var/lib/dpkg/info/snapd.prerm在第一行后面插入一行： exit 0  然后卸载： dpkg --purge --force-all snapd.   发现还是有问题  sudo aptitude remove snapd   解决 安装angr不要看官网，根据这篇… 代理（终端）SSR设置HTTP代理0.0.0.0">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu的疑难杂症记录">
 <meta property="og:url" content="http://yoursite.com/2019/01/02/ubuntu的疑难杂症记录/index.html">
 <meta property="og:site_name" content="vct的演算纸">
-<meta property="og:description" content="snap安装失败导致apt报错 sudo gedit /var/lib/dpkg/info/snapd.prerm在第一行后面插入一行： exit 0  然后卸载： dpkg —purge —force-all snapd.   发现还是有问题   sudo aptitude remove snapd   解决 安装angr不要看官网，根据这篇…">
+<meta property="og:description" content="snap安装失败导致apt报错 sudo gedit /var/lib/dpkg/info/snapd.prerm在第一行后面插入一行： exit 0  然后卸载： dpkg --purge --force-all snapd.   发现还是有问题  sudo aptitude remove snapd   解决 安装angr不要看官网，根据这篇… 代理（终端）SSR设置HTTP代理0.0.0.0">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-02T13:23:07.319Z">
+<meta property="og:updated_time" content="2019-01-11T03:19:08.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu的疑难杂症记录">
-<meta name="twitter:description" content="snap安装失败导致apt报错 sudo gedit /var/lib/dpkg/info/snapd.prerm在第一行后面插入一行： exit 0  然后卸载： dpkg —purge —force-all snapd.   发现还是有问题   sudo aptitude remove snapd   解决 安装angr不要看官网，根据这篇…">
+<meta name="twitter:description" content="snap安装失败导致apt报错 sudo gedit /var/lib/dpkg/info/snapd.prerm在第一行后面插入一行： exit 0  然后卸载： dpkg --purge --force-all snapd.   发现还是有问题  sudo aptitude remove snapd   解决 安装angr不要看官网，根据这篇… 代理（终端）SSR设置HTTP代理0.0.0.0">
 
 
 
@@ -342,13 +342,32 @@
 
       
         <h1 id="snap安装失败导致apt报错"><a href="#snap安装失败导致apt报错" class="headerlink" title="snap安装失败导致apt报错"></a>snap安装失败导致apt报错</h1><ol>
-<li><p>sudo gedit /var/lib/dpkg/info/snapd.prerm<br>在第一行后面插入一行： exit 0</p>
+<li><p><code>sudo gedit /var/lib/dpkg/info/snapd.prerm</code><br>在第一行后面插入一行： exit 0</p>
 </li>
-<li><p>然后卸载： dpkg —purge —force-all snapd.</p>
+<li><p>然后卸载： <code>dpkg --purge --force-all snapd.</code></p>
 </li>
 </ol>
-<p>发现还是有问题   sudo aptitude remove snapd   解决</p>
+<p>发现还是有问题  <code>sudo aptitude remove snapd</code>   解决</p>
 <h1 id="安装angr"><a href="#安装angr" class="headerlink" title="安装angr"></a>安装angr</h1><p><a href="http://pwn4.fun/2017/06/06/angr使用说明/" target="_blank" rel="noopener">不要看官网，根据这篇…</a></p>
+<h1 id="代理（终端）"><a href="#代理（终端）" class="headerlink" title="代理（终端）"></a>代理（终端）</h1><p>SSR设置HTTP代理0.0.0.0 端口仍然是1087</p>
+<p>ubuntu系统设置宿主机的ip，端口1087</p>
+<p>终端里</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=<span class="string">"http://10.211.55.2:1087"</span></span><br><span class="line"><span class="built_in">export</span> https_proxy=<span class="string">"http://10.211.55.2:1087"</span></span><br></pre></td></tr></table></figure>
+<p>最后<code>curl ip.gs</code>看看</p>
+<p><del>再吐槽一句，windows的VMware里的代理设置死活不对，mac+pd一下就好了</del></p>
+<p><del>windows唯一能吸引我的大概就是能写C++的visual studio了</del></p>
+<h1 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/yyuu/pyenv.git ~/.pyenv</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=~/.pyenv/bin:$PATH'</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PYENV_ROOT=~/.pyenv'</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'eval "$(pyenv init -)"'</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc 								//激活pyenv</span><br></pre></td></tr></table></figure>
+<p>然后pip安装virtualenv</p>
+<p>创建环境<code>pyenv install 3.6.4 -v</code></p>
+<p>查看目前终端 <code>echo $SHELL</code></p>
+<p>安装pyenv-virtualenv 插件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'eval "$(pyenv virtualenv-init -)"'</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">exec</span> <span class="variable">$SHELL</span>				//重启shell</span><br></pre></td></tr></table></figure>
+<p>创建环境</p>
+<p><code>pyenv virtualenv 3.6.4 py3.6.4</code></p>
+<p>激活环境</p>
+<p><code>pyenv activate py3.6.4</code></p>
+<p>退出环境</p>
+<p><code>pyenv deactivate</code></p>
 
       
     </div>
@@ -533,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#snap安装失败导致apt报错"><span class="nav-number">1.</span> <span class="nav-text">snap安装失败导致apt报错</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装angr"><span class="nav-number">2.</span> <span class="nav-text">安装angr</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#snap安装失败导致apt报错"><span class="nav-number">1.</span> <span class="nav-text">snap安装失败导致apt报错</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装angr"><span class="nav-number">2.</span> <span class="nav-text">安装angr</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理（终端）"><span class="nav-number">3.</span> <span class="nav-text">代理（终端）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pyenv"><span class="nav-number">4.</span> <span class="nav-text">pyenv</span></a></li></ol></div>
             
 
           </div>
