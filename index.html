@@ -262,6 +262,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/13/符号执行-angr/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="purecall">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="vct的演算纸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/13/符号执行-angr/" itemprop="url">符号执行-angr</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-13T17:44:24+08:00">
+                2019-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/13/符号执行-angr/" class="leancloud_visitors" data-flag-title="符号执行-angr">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="angr基本使用"><a href="#angr基本使用" class="headerlink" title="angr基本使用"></a>angr基本使用</h1><p>根据官网教程安装非常非常非常麻烦…</p>
+<p>照着这篇做<a href="http://pwn4.fun/2017/06/06/angr%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" target="_blank" rel="noopener">安装教程</a></p>
+<h2 id="例1-r100"><a href="#例1-r100" class="headerlink" title="例1 r100"></a>例1 r100</h2><p>先试着做一个例题 r100</p>
+<p>流程很简单，就是一个玩具</p>
+<p><img src="/2019/01/13/符号执行-angr/1.png" alt="1"></p>
+<p>就是要执行到0x400844，不能到0x400855</p>
+<p>直接跑脚本，写的时候有几个奇奇怪怪的小问题</p>
+<blockquote>
+<p>import angr 和 from angr import * 不是一回事…</p>
+<p>用后者一直报找不到angr</p>
+</blockquote>
+<p>还有就是proj的auto_load_libs，甚至文件名的单引号双引号都能让我这里跑不出结果…也是醉了</p>
+<p><img src="/2019/01/13/符号执行-angr/2.png" alt="2"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/CTF的一些做题记录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2107,7 +2250,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
