@@ -357,6 +357,13 @@
 </blockquote>
 <p>还有就是proj的auto_load_libs，甚至文件名的单引号双引号都能让我这里跑不出结果…也是醉了</p>
 <p><img src="/2019/01/13/符号执行-angr/2.png" alt="2"></p>
+<h2 id="例2-ais3-cm"><a href="#例2-ais3-cm" class="headerlink" title="例2 ais3-cm"></a>例2 ais3-cm</h2><p><img src="/2019/01/13/符号执行-angr/3.png" alt="3"></p>
+<p>这个程序有一个命令行参数输入</p>
+<p>先给出解题代码</p>
+<p><img src="/2019/01/13/符号执行-angr/4.png" alt="4"></p>
+<p>其中BVS应该是创建一个bit向量，这里选择50*8个bit，也就是50字符</p>
+<p>然后就是注意添加命令行参数的格式了</p>
+<p>最后输出时用<code>cast_to=str</code>可以以ASCII形式输出</p>
 
           
         
