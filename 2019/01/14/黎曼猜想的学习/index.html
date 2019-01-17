@@ -96,7 +96,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/1.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/7.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/8.png">
-<meta property="og:updated_time" content="2019-01-17T14:53:10.464Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/9.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/10.jpg">
+<meta property="og:updated_time" content="2019-01-17T15:14:12.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="黎曼猜想的学习">
 <meta name="twitter:description" content="先介绍一些相关背景 欧拉乘积公式zeta函数和素数间的第一个联系由欧拉发现，n为自然数，p为素数  欧拉首先从一般的zeta函数开始  将等式两边同时乘以第二项  接着从zeta函数中减去结果表达式  继续下去  这个不难推导，类似”筛法”，最终结果如下   欧拉实际上构造了一个筛子，它和埃拉托斯特尼筛法很像。它将非素数从 zeta 函数中筛了出去。  简化后就得到了一开始的等式  该恒等式展示了">
@@ -408,9 +410,24 @@
 <p>γ又叫做欧拉常数，<del>为什么要说又呢</del></p>
 <h1 id="全体自然数之和"><a href="#全体自然数之和" class="headerlink" title="全体自然数之和"></a>全体自然数之和</h1><p>至此<strong>黎曼</strong>终于要出场了</p>
 <p>他的基本目标是对质数的分布获得一个明确的表达式，提出了著名的<strong>黎曼猜想</strong></p>
-<p>同时，他的推导过程中有一个副产品甚至更有名：</p>
+<p>同时，他的推导过程中有一个副产品甚至更有名：全体自然数之和为$ -\frac{1}{12}$</p>
 <script type="math/tex; mode=display">
-\sum\limits_{i=1}^{\infty}{i} = -\frac{1}{12}</script>
+\sum\limits_{i=1}^{\infty}{i} = -\frac{1}{12}</script><p>已经提到，研究质数分布的基本出发点是<strong>欧拉乘积公式</strong></p>
+<p><img src="/2019/01/14/黎曼猜想的学习/9.jpg" alt="9"></p>
+<p>这个公式两端出现的<strong>s</strong>是一个变量，当且仅当<code>s &gt; 1</code>时，欧拉乘积公式成立</p>
+<h2 id="黎曼提出的要点"><a href="#黎曼提出的要点" class="headerlink" title="黎曼提出的要点"></a>黎曼提出的要点</h2><ol>
+<li>我们应该把$ζ(s)$中的自变量s理解为<strong>复数</strong>，而不只是实数</li>
+<li>可以通过<strong>解析延拓</strong>，让$ζ(s)$在<code>s &lt; 1</code>时也获得定义</li>
+<li>通过对ζ(s)的研究，我们可以对<strong>小于等于某个数x的质数的个数</strong>给出一个明确的表达式，在这个表达式中唯一未知的就是ζ(s)的<strong>零点</strong>的位置</li>
+<li>黎曼猜测，ζ(s)的零点都位于某些地方，这个猜测就是<strong>黎曼猜想</strong></li>
+</ol>
+<h2 id="解析延拓"><a href="#解析延拓" class="headerlink" title="解析延拓"></a>解析延拓</h2><p><img src="/2019/01/14/黎曼猜想的学习/10.jpg" alt="10"></p>
+<p>至此，<strong>欧拉ζ函数升级为黎曼ζ函数</strong></p>
+<p>假如仍然用s &gt; 1时的定义，那么ζ(-1)就是全体自然数的和</p>
+<p>但实际上，ζ(-1)已经换了一个定义</p>
+<p>也就是<strong>黎曼的ζ(-1) =  $ -\frac{1}{12} $</strong></p>
+<p>举一个最简单的<strong>解析延拓</strong>的例子</p>
+
       
     </div>
     
@@ -590,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#欧拉乘积公式"><span class="nav-number">1.</span> <span class="nav-text">欧拉乘积公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两个自然数互质的概率"><span class="nav-number">2.</span> <span class="nav-text">两个自然数互质的概率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全体自然数之和"><span class="nav-number">3.</span> <span class="nav-text">全体自然数之和</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#欧拉乘积公式"><span class="nav-number">1.</span> <span class="nav-text">欧拉乘积公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两个自然数互质的概率"><span class="nav-number">2.</span> <span class="nav-text">两个自然数互质的概率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全体自然数之和"><span class="nav-number">3.</span> <span class="nav-text">全体自然数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#黎曼提出的要点"><span class="nav-number">3.1.</span> <span class="nav-text">黎曼提出的要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析延拓"><span class="nav-number">3.2.</span> <span class="nav-text">解析延拓</span></a></li></ol></li></ol></div>
             
 
           </div>
