@@ -100,7 +100,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/10.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/11.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/12.jpg">
-<meta property="og:updated_time" content="2019-01-17T15:32:39.973Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/13.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/14.jpg">
+<meta property="og:updated_time" content="2019-01-17T16:11:49.892Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="黎曼猜想的学习">
 <meta name="twitter:description" content="先介绍一些相关背景 欧拉乘积公式zeta函数和素数间的第一个联系由欧拉发现，n为自然数，p为素数  欧拉首先从一般的zeta函数开始  将等式两边同时乘以第二项  接着从zeta函数中减去结果表达式  继续下去  这个不难推导，类似”筛法”，最终结果如下   欧拉实际上构造了一个筛子，它和埃拉托斯特尼筛法很像。它将非素数从 zeta 函数中筛了出去。  简化后就得到了一开始的等式  该恒等式展示了">
@@ -432,7 +434,7 @@
 <p>量子场论，超弦理论中经常会用到这个命题</p>
 </blockquote>
 <p><strong>解析延拓</strong>最基本的理解：扩大函数的<strong>定义域</strong></p>
-<h3 id="举例：y-x"><a href="#举例：y-x" class="headerlink" title="举例：y=x"></a>举例：y=x</h3><p>举个例子，$ y = x , x∈[-1,1] $</p>
+<h3 id="例1、y-x"><a href="#例1、y-x" class="headerlink" title="例1、y=x"></a>例1、y=x</h3><p>举个例子，$ y = x , x∈[-1,1] $</p>
 <p><img src="/2019/01/14/黎曼猜想的学习/11.jpg" alt="11"></p>
 <p>这是一条线段，我们可以任意<strong>延伸</strong>至任意远，把定义域<strong>扩展</strong>到整个数轴</p>
 <blockquote>
@@ -446,7 +448,25 @@
 <h3 id="一般方法：幂级数"><a href="#一般方法：幂级数" class="headerlink" title="一般方法：幂级数"></a>一般方法：幂级数</h3><p>假如一个函数$ y = f(x) ​$在某个点$ x_0 ​$附近等于一个<strong>幂级数</strong>，那么称这个函数在这一点是<strong>解析(analytic)</strong>的</p>
 <p>这也是<strong>“解析”</strong>这个词的<strong>严格定义</strong>。</p>
 <p><img src="/2019/01/14/黎曼猜想的学习/12.jpg" alt="12"></p>
-<p>对于之前的<code>y=x</code>的例子，它本身就是一个幂级数，其中$ x_0 = 0 $，也就是说它在<strong>原点</strong>处</p>
+<p>回到之前的<code>y=x</code>的例子，它本身就是一个幂级数，其中$ x_0 = 0 $，也就是说它在<strong>原点</strong>处等于一个幂级数，其中只有<strong>一次项</strong>的系数为1，其它都为0；当然对于原点之外的$ x_0 $仍然是一个幂级数，都是<strong>解析</strong>的</p>
+<h4 id="收敛半径"><a href="#收敛半径" class="headerlink" title="收敛半径"></a>收敛半径</h4><p>对于一个幂级数，一个很重要的性质是它的<strong>收敛半径(radius of convergence)</strong></p>
+<p>也就是说，一个幂级数并不总是收敛的，或者说并不总是能算出一个有限值</p>
+<p>如果离中心点$ x_0 $太远，幂级数就可能变成无穷大，也就是发散了</p>
+<p>对于 <code>y = x</code>，它的收敛半径是无穷大，也就是说在任何地方都收敛</p>
+<h3 id="例2、等比级数"><a href="#例2、等比级数" class="headerlink" title="例2、等比级数"></a>例2、等比级数</h3><p><img src="/2019/01/14/黎曼猜想的学习/13.jpg" alt="13"></p>
+<p>我们要求无穷多项的和，如果$ -1 &lt; x &lt; 1 $，则当k趋于无穷时，$ x^k $趋于0，所以求和结果会趋于$ \frac{1}{1-x} ​$</p>
+<p>而若$ x &gt; 1 $或$ x &lt; -1 $，求和结果显然会趋于无穷大</p>
+<p>得出结论：等比级数的<strong>收敛半径</strong>等于1，在这个收敛半径之内它等于$ \frac{1}{1-x} $，而在收敛半径之外它发散</p>
+<blockquote>
+<p>所以等比级数的定义域最大只能到$ (-1,1) $这个区间</p>
+</blockquote>
+<p>接着，我们对等比级数进行解析延拓</p>
+<p>在收敛半径之外，我们定义它等于$ \frac{1}{1-x} $，这样我们就获得了一个定义域更大的函数，定义域扩大到除$ x = 1$之外的所有点</p>
+<h3 id="例3、格兰迪级数"><a href="#例3、格兰迪级数" class="headerlink" title="例3、格兰迪级数"></a>例3、格兰迪级数</h3><p>接着等比级数的讨论，我们把$ x = -1 $代回等比级数中，<strong>假装不知道这时函数定义已经改变了……</strong></p>
+<p>在形式上得到：</p>
+<p><img src="/2019/01/14/黎曼猜想的学习/14.jpg" alt="14"></p>
+<p>实际上，就基本的意义而言，格兰迪级数<strong>不等于任何一个数</strong>，但在某种推广的意义上，可以认为它等于$ \frac{1}{2} $</p>
+<h2 id="黎曼-ζ-1"><a href="#黎曼-ζ-1" class="headerlink" title="黎曼$ ζ(-1)$"></a>黎曼$ ζ(-1)$</h2><p>有了这些背景，我们终于可以回到<strong>全体自然数之和</strong>这个正题了……</p>
 
       
     </div>
@@ -627,7 +647,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#欧拉乘积公式"><span class="nav-number">1.</span> <span class="nav-text">欧拉乘积公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两个自然数互质的概率"><span class="nav-number">2.</span> <span class="nav-text">两个自然数互质的概率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全体自然数之和"><span class="nav-number">3.</span> <span class="nav-text">全体自然数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#黎曼提出的要点"><span class="nav-number">3.1.</span> <span class="nav-text">黎曼提出的要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析延拓"><span class="nav-number">3.2.</span> <span class="nav-text">解析延拓</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举例：y-x"><span class="nav-number">3.2.1.</span> <span class="nav-text">举例：y=x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般方法：幂级数"><span class="nav-number">3.2.2.</span> <span class="nav-text">一般方法：幂级数</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#欧拉乘积公式"><span class="nav-number">1.</span> <span class="nav-text">欧拉乘积公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两个自然数互质的概率"><span class="nav-number">2.</span> <span class="nav-text">两个自然数互质的概率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全体自然数之和"><span class="nav-number">3.</span> <span class="nav-text">全体自然数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#黎曼提出的要点"><span class="nav-number">3.1.</span> <span class="nav-text">黎曼提出的要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析延拓"><span class="nav-number">3.2.</span> <span class="nav-text">解析延拓</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例1、y-x"><span class="nav-number">3.2.1.</span> <span class="nav-text">例1、y=x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般方法：幂级数"><span class="nav-number">3.2.2.</span> <span class="nav-text">一般方法：幂级数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#收敛半径"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">收敛半径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例2、等比级数"><span class="nav-number">3.2.3.</span> <span class="nav-text">例2、等比级数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例3、格兰迪级数"><span class="nav-number">3.2.4.</span> <span class="nav-text">例3、格兰迪级数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#黎曼-ζ-1"><span class="nav-number">3.3.</span> <span class="nav-text">黎曼$ ζ(-1)$</span></a></li></ol></li></ol></div>
             
 
           </div>
