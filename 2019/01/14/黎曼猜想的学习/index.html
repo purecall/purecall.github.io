@@ -110,7 +110,8 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/20.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/21.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/22.jpg">
-<meta property="og:updated_time" content="2019-01-19T07:37:01.475Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/23.jpg">
+<meta property="og:updated_time" content="2019-01-19T07:53:07.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="黎曼猜想的学习">
 <meta name="twitter:description" content="先介绍一些相关背景 本文的部分标题按照“提出问题，描述背景理论，解决问题”来设置 欧拉乘积公式zeta函数和素数间的第一个联系由欧拉发现，n为自然数，p为素数  欧拉首先从一般的zeta函数开始  将等式两边同时乘以第二项  接着从zeta函数中减去结果表达式  继续下去  这个不难推导，类似”筛法”，最终结果如下   欧拉实际上构造了一个筛子，它和埃拉托斯特尼筛法很像。它将非素数从 zeta 函">
@@ -529,6 +530,7 @@
 <p>好处在于：某种意义上，<strong>二维的复变函数比一维的实变函数简单</strong></p>
 <blockquote>
 <p>因为在数轴上接近一个点，只有两个方向，左和右，而<strong>在复平面上接近一个点，却有无穷多个方向</strong>，例如左边、右边、上边、下边以及任意倾斜的方向</p>
+<p><strong>突然想到xz和我说的，函数在某一点可导意味着左导数等于右导数</strong></p>
 <p>如果对无穷多个方向做计算都能得到同一个结果，那么这是一个<strong>非常强的限制条件</strong>，能通过这样的限制条件的复变函数就很容易处理</p>
 <p>例如，复变函数的解析延拓就比实变函数的解析延拓容易得多</p>
 <p>因此数学界有这样的笑谈：<strong>实变函数处理的都是性质非常恶劣的函数，复变函数处理的都是性质非常良好的函数。</strong></p>
@@ -539,6 +541,12 @@
 <p>如果复平面上围着一个零点做一条曲线，然后求函数在这条曲线上的积分，会发现积分结果完全由零点的性质决定，跟曲线的具体情况没有关系</p>
 <p>我们只需要知道函数在零点附近的行为就够了</p>
 <h2 id="非平凡零点"><a href="#非平凡零点" class="headerlink" title="非平凡零点"></a>非平凡零点</h2><p>首先，黎曼得出了一个等式…</p>
+<p><img src="/2019/01/14/黎曼猜想的学习/23.jpg" alt="23"></p>
+<blockquote>
+<p>左边的$J(x)$是一个<strong>阶梯函数</strong>，它在x = 0的地方取值为0，然后每经过一个质数（例如2、3、5）就增加1，每经过一个质数的平方（例如4、9、25）就增加$\frac{1}{2}$，每经过一个质数的三次方（例如8、27、125）就增加$\frac{1}{3}$，以此类推，每经过一个质数的n次方就增加$\frac{1}{n}$</p>
+<p>可以理解为，<strong>一个质数的n次方被算作了$\frac{1}{n}$个质数</strong></p>
+<p>显然，这个函数跟质数的分布密切相关</p>
+</blockquote>
 
       
     </div>
