@@ -102,7 +102,12 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/12.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/13.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/14.jpg">
-<meta property="og:updated_time" content="2019-01-17T16:23:50.725Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/15.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/16.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/17.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/18.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/黎曼猜想的学习/19.jpg">
+<meta property="og:updated_time" content="2019-01-19T03:52:10.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="黎曼猜想的学习">
 <meta name="twitter:description" content="先介绍一些相关背景 本文的部分标题按照“提出问题，描述背景理论，解决问题”来设置 欧拉乘积公式zeta函数和素数间的第一个联系由欧拉发现，n为自然数，p为素数  欧拉首先从一般的zeta函数开始  将等式两边同时乘以第二项  接着从zeta函数中减去结果表达式  继续下去  这个不难推导，类似”筛法”，最终结果如下   欧拉实际上构造了一个筛子，它和埃拉托斯特尼筛法很像。它将非素数从 zeta 函">
@@ -468,6 +473,40 @@
 <p><img src="/2019/01/14/黎曼猜想的学习/14.jpg" alt="14"></p>
 <p>实际上，就基本的意义而言，格兰迪级数<strong>不等于任何一个数</strong>，但在某种推广的意义上，可以认为它等于$ \frac{1}{2} $</p>
 <h2 id="黎曼-ζ-1"><a href="#黎曼-ζ-1" class="headerlink" title="黎曼$ ζ(-1)$"></a>黎曼$ ζ(-1)$</h2><p>有了这些背景，我们终于可以回到<strong>全体自然数之和</strong>这个正题了……</p>
+<p>首先，欧拉$ ζ(s) $在$ s&lt;=1 $时是发散的，因此没有意义</p>
+<p>但是黎曼提出了一种通过$\zeta(s)$来定义$ \zeta(1-s) $的方法，使函数在$ x&lt;0 $时也获得了定义</p>
+<h4 id="黎曼的函数方程"><a href="#黎曼的函数方程" class="headerlink" title="黎曼的函数方程"></a>黎曼的函数方程</h4><p>他首先非常<strong>不显然</strong>的但<strong>正确</strong>推导过程证明了以下的等式</p>
+<p><img src="/2019/01/14/黎曼猜想的学习/15.jpg" alt="15"></p>
+<blockquote>
+<p>这里的$ Γ $是欧拉Gamma函数，是阶乘的扩展</p>
+</blockquote>
+<p>最重要的一点是：右边关于s的表达式中，<strong>把s换成1-s，答案不变</strong></p>
+<p>因此等式左边也可以替换，因此得出：</p>
+<p><img src="/2019/01/14/黎曼猜想的学习/16.jpg" alt="16"></p>
+<p>这个等式叫做<strong>黎曼的函数方程</strong></p>
+<p>根据这个等式，如果知道了$ \zeta(s) $，就可以算出$ \zeta(1-s) $</p>
+<p>就这样黎曼$ \zeta $函数做出了解析延拓，从它已知的在$ s&gt;1 $的值，可以定义它在$ s&lt;0 $的值</p>
+<h4 id="狄利克雷级数"><a href="#狄利克雷级数" class="headerlink" title="狄利克雷级数"></a>狄利克雷级数</h4><p>我们还会发现一个问题，定义域$ [0,1] $内该怎么办呢……</p>
+<p>实际上在黎曼之前，已有数学家对这个区域做出了解析延拓</p>
+<p>回顾之前，我们把$ n^{-s} $ 记作$ f(n) $，把所有$ f(n) $的和即$ f(1)+f(2)+f(3)+… $记作<strong>A</strong></p>
+<p>把$ f(2) $乘到A上，我们会得到所有的偶数项，当时我们从A中减去$ f(2)A$，就消去了所有的偶数项，只剩下了奇数项</p>
+<p>现在，我们考虑从A中减去$ 2f(2)A $，结果是：</p>
+<p><img src="/2019/01/14/黎曼猜想的学习/17.jpg" alt="17"></p>
+<p>右边的表达式中，<strong>正负号交替出现</strong>，这个级数叫做<strong>狄利克雷函数(Dirichlet series)</strong></p>
+<blockquote>
+<p>黎曼当时就是继承了狄利克雷在哥廷根大学的职位</p>
+</blockquote>
+<p>正是由于正负号交替出现，狄利克雷级数的收敛范围扩大了，从$ s&gt;1 $扩大到了$ s&gt;0 $</p>
+<p>因此，在定义域$ [0,1] $中，$ \zeta(s) $就可以用<strong>狄利克雷函数函数除以$ [1-2f(2)] $</strong>来定义</p>
+<h4 id="解析延拓之后"><a href="#解析延拓之后" class="headerlink" title="解析延拓之后"></a>解析延拓之后</h4><p>画出图像</p>
+<p><img src="/2019/01/14/黎曼猜想的学习/18.jpg" alt="18"></p>
+<p>其中$ s=1 $仍然是无穷大</p>
+<p>而在$ s<1 $的区域，我们**假装不知道$="" \zeta="" $函数的定义已经改变了**，把$="" s="">1 $时的级数代入，就会得到以下形式结果：</1></p>
+<p><img src="/2019/01/14/黎曼猜想的学习/19.jpg" alt="19"></p>
+<p><strong>其中第一项含有全体自然数之和，也含有$ \zeta(-1) $，也就是标题中提出的问题</strong></p>
+<blockquote>
+<p>在每个等式中都加了<strong>问号</strong>，是强调这并不是真的相等，只是一种<strong>联想</strong></p>
+</blockquote>
 
       
     </div>
@@ -652,7 +691,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#欧拉乘积公式"><span class="nav-number">1.</span> <span class="nav-text">欧拉乘积公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两个自然数互质的概率"><span class="nav-number">2.</span> <span class="nav-text">两个自然数互质的概率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全体自然数之和"><span class="nav-number">3.</span> <span class="nav-text">全体自然数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#黎曼提出的要点"><span class="nav-number">3.1.</span> <span class="nav-text">黎曼提出的要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析延拓"><span class="nav-number">3.2.</span> <span class="nav-text">解析延拓</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例1、y-x"><span class="nav-number">3.2.1.</span> <span class="nav-text">例1、y=x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般方法：幂级数"><span class="nav-number">3.2.2.</span> <span class="nav-text">一般方法：幂级数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#收敛半径"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">收敛半径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例2、等比级数"><span class="nav-number">3.2.3.</span> <span class="nav-text">例2、等比级数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例3、格兰迪级数"><span class="nav-number">3.2.4.</span> <span class="nav-text">例3、格兰迪级数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#黎曼-ζ-1"><span class="nav-number">3.3.</span> <span class="nav-text">黎曼$ ζ(-1)$</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#欧拉乘积公式"><span class="nav-number">1.</span> <span class="nav-text">欧拉乘积公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两个自然数互质的概率"><span class="nav-number">2.</span> <span class="nav-text">两个自然数互质的概率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#全体自然数之和"><span class="nav-number">3.</span> <span class="nav-text">全体自然数之和</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#黎曼提出的要点"><span class="nav-number">3.1.</span> <span class="nav-text">黎曼提出的要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析延拓"><span class="nav-number">3.2.</span> <span class="nav-text">解析延拓</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例1、y-x"><span class="nav-number">3.2.1.</span> <span class="nav-text">例1、y=x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般方法：幂级数"><span class="nav-number">3.2.2.</span> <span class="nav-text">一般方法：幂级数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#收敛半径"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">收敛半径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例2、等比级数"><span class="nav-number">3.2.3.</span> <span class="nav-text">例2、等比级数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例3、格兰迪级数"><span class="nav-number">3.2.4.</span> <span class="nav-text">例3、格兰迪级数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#黎曼-ζ-1"><span class="nav-number">3.3.</span> <span class="nav-text">黎曼$ ζ(-1)$</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#黎曼的函数方程"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">黎曼的函数方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#狄利克雷级数"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">狄利克雷级数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析延拓之后"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">解析延拓之后</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
