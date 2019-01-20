@@ -104,7 +104,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/03/CTF的一些做题记录/15.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/03/CTF的一些做题记录/16.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/03/CTF的一些做题记录/17.png">
-<meta property="og:updated_time" content="2019-01-20T09:59:43.907Z">
+<meta property="og:updated_time" content="2019-01-20T10:15:59.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CTF的一些做题记录">
 <meta name="twitter:description" content="RE-dice主要就是扔骰子游戏，要扔3-1-3-3-7 根据字符串提示找到最后会输出的flag的位置，我这里是v84，按alt+t搜索文本v84，再按ctrl+t搜索下一个 flag =v84^v87 发现v84一开始被byte_xxx赋值了，找到数据，选中全部按shift+E，初始值保存十六进制数据到文本 132138153D3357472D276A73440526595C7917444577">
@@ -434,7 +434,7 @@
 </blockquote>
 <p>我可以清楚地控制C中的每一个bit，为什么要用python呢？</p>
 <p>不完全归纳的结论：</p>
-<p><strong>int + 32bits，不管后面的32bits是int还是uint，都等于int + 32bits（补）</strong></p>
+<p><strong>int + 32bits，不管后面的32bits是int还是uint，都等于int + 32bits（补）,貌似需要加一个前提（32bits）没超过int的上界</strong></p>
 <p>也就是说，后面的32bits直接看成int就行了，不需要纠结有无符号</p>
 
       
