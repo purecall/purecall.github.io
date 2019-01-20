@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1、re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 2、game一个游戏通关后输出flag的题 先在IDA中shift+F12查找字符串，发现the flag">
+<meta name="description" content="re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 game一个游戏通关后输出flag的题 先在IDA中shift+F12查找字符串，发现the flag is，">
 <meta name="keywords" content="RE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XCTF攻防世界-逆向wp">
 <meta property="og:url" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/index.html">
 <meta property="og:site_name" content="vct的演算纸">
-<meta property="og:description" content="1、re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 2、game一个游戏通关后输出flag的题 先在IDA中shift+F12查找字符串，发现the flag">
+<meta property="og:description" content="re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 game一个游戏通关后输出flag的题 先在IDA中shift+F12查找字符串，发现the flag is，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-20T15:21:54.426Z">
+<meta property="og:updated_time" content="2019-01-20T15:30:53.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XCTF攻防世界-逆向wp">
-<meta name="twitter:description" content="1、re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 2、game一个游戏通关后输出flag的题 先在IDA中shift+F12查找字符串，发现the flag">
+<meta name="twitter:description" content="re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 game一个游戏通关后输出flag的题 先在IDA中shift+F12查找字符串，发现the flag is，">
 
 
 
@@ -331,10 +331,10 @@
       
 
       
-        <h1 id="1、re1"><a href="#1、re1" class="headerlink" title="1、re1"></a>1、re1</h1><p>最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来</p>
+        <h1 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h1><p>最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来</p>
 <p>试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了</p>
 <p>后来尝试了下IDA的动态调试，在cmp处下断点就解决了</p>
-<h1 id="2、game"><a href="#2、game" class="headerlink" title="2、game"></a>2、game</h1><p>一个游戏通关后输出flag的题</p>
+<h1 id="game"><a href="#game" class="headerlink" title="game"></a>game</h1><p>一个游戏通关后输出flag的题</p>
 <p>先在IDA中<code>shift+F12</code>查找字符串，发现<code>the flag is</code>，跟踪到输出处</p>
 <p><del>认定前面没有陷阱之后</del>，发现就是2个字符数组的异或…</p>
 <blockquote>
@@ -520,7 +520,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、re1"><span class="nav-number">1.</span> <span class="nav-text">1、re1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、game"><span class="nav-number">2.</span> <span class="nav-text">2、game</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#re1"><span class="nav-number">1.</span> <span class="nav-text">re1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#game"><span class="nav-number">2.</span> <span class="nav-text">game</span></a></li></ol></div>
             
 
           </div>
