@@ -441,6 +441,11 @@
 </blockquote>
 <p>输出结果</p>
 <p><img src="/2018/12/16/z3学习/2.png" alt="2"></p>
+<h2 id="3、CTF-3"><a href="#3、CTF-3" class="headerlink" title="3、CTF-3"></a>3、CTF-3</h2><p><img src="/2018/12/16/z3学习/3.png" alt="3"></p>
+<p>z3脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line">inp = [BitVec(<span class="string">'a%d'</span> %i, <span class="number">56</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>)]</span><br><span class="line">sol_1 = inp[<span class="number">0</span>] - inp[<span class="number">1</span>] + inp[<span class="number">2</span>]</span><br><span class="line">sol_2 = inp[<span class="number">1</span>] +<span class="number">3</span> *(inp[<span class="number">2</span>]+inp[<span class="number">0</span>])</span><br><span class="line">sol_3 = inp[<span class="number">2</span>]*inp[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">s = Solver()</span><br><span class="line">s.add(sol_1==<span class="number">1550207830</span>)</span><br><span class="line">s.add(sol_2==<span class="number">12465522610</span>)</span><br><span class="line">s.add(sol_3==<span class="number">3651346623716053780</span>)</span><br><span class="line"><span class="keyword">print</span> s.check()</span><br><span class="line">m = s.model()</span><br><span class="line">r = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> inp:</span><br><span class="line">    <span class="keyword">print</span> m[i]</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="/2018/12/16/z3学习/4.png" alt="4"></p>
 
           
         

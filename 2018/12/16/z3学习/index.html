@@ -89,7 +89,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/16/z3学习/1.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/16/z3学习/2.png">
-<meta property="og:updated_time" content="2019-01-16T08:20:34.280Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/z3学习/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/z3学习/4.png">
+<meta property="og:updated_time" content="2019-01-20T07:14:39.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="z3学习">
 <meta name="twitter:description" content="基本语法安装好后进入z3目录下，source ~/z3/bin/activate 照着官网教程学习下 12345from z3 import *p = Bool(&apos;p&apos;)q = Bool(&apos;q&apos;)r = Bool(&apos;r&apos;)solve(Implies(p,q),r==Not(q),And(Not(p),r)) 结果[q = False, p = False, r = True] 这里Implies是">
@@ -441,6 +443,11 @@
 </blockquote>
 <p>输出结果</p>
 <p><img src="/2018/12/16/z3学习/2.png" alt="2"></p>
+<h2 id="3、CTF-3"><a href="#3、CTF-3" class="headerlink" title="3、CTF-3"></a>3、CTF-3</h2><p><img src="/2018/12/16/z3学习/3.png" alt="3"></p>
+<p>z3脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line">inp = [BitVec(<span class="string">'a%d'</span> %i, <span class="number">56</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>)]</span><br><span class="line">sol_1 = inp[<span class="number">0</span>] - inp[<span class="number">1</span>] + inp[<span class="number">2</span>]</span><br><span class="line">sol_2 = inp[<span class="number">1</span>] +<span class="number">3</span> *(inp[<span class="number">2</span>]+inp[<span class="number">0</span>])</span><br><span class="line">sol_3 = inp[<span class="number">2</span>]*inp[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">s = Solver()</span><br><span class="line">s.add(sol_1==<span class="number">1550207830</span>)</span><br><span class="line">s.add(sol_2==<span class="number">12465522610</span>)</span><br><span class="line">s.add(sol_3==<span class="number">3651346623716053780</span>)</span><br><span class="line"><span class="keyword">print</span> s.check()</span><br><span class="line">m = s.model()</span><br><span class="line">r = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> inp:</span><br><span class="line">    <span class="keyword">print</span> m[i]</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="/2018/12/16/z3学习/4.png" alt="4"></p>
 
       
     </div>
@@ -625,7 +632,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本语法"><span class="nav-number">1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遍历模型"><span class="nav-number">2.</span> <span class="nav-text">遍历模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表推导"><span class="nav-number">4.</span> <span class="nav-text">列表推导</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BitVec"><span class="nav-number">5.</span> <span class="nav-text">BitVec</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CTF-amp-实例"><span class="nav-number">6.</span> <span class="nav-text">CTF&amp;实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、解数独"><span class="nav-number">6.1.</span> <span class="nav-text">1、解数独</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、CTF-1"><span class="nav-number">6.2.</span> <span class="nav-text">2、CTF-1</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本语法"><span class="nav-number">1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遍历模型"><span class="nav-number">2.</span> <span class="nav-text">遍历模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表推导"><span class="nav-number">4.</span> <span class="nav-text">列表推导</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BitVec"><span class="nav-number">5.</span> <span class="nav-text">BitVec</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CTF-amp-实例"><span class="nav-number">6.</span> <span class="nav-text">CTF&amp;实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、解数独"><span class="nav-number">6.1.</span> <span class="nav-text">1、解数独</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、CTF-1"><span class="nav-number">6.2.</span> <span class="nav-text">2、CTF-1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、CTF-3"><span class="nav-number">6.3.</span> <span class="nav-text">3、CTF-3</span></a></li></ol></li></ol></div>
             
 
           </div>
