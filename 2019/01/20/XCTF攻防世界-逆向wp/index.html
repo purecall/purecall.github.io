@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="vct的演算纸">
 <meta property="og:description" content="新手练习re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 game一个游戏通关后输出flag的题 先在IDA中shift+F12查找字符串，发现the flag">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/1">
-<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/2">
-<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/4">
-<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/3">
-<meta property="og:updated_time" content="2019-01-21T09:28:06.185Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/1.png]">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/4.png">
+<meta property="og:updated_time" content="2019-01-21T09:30:58.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XCTF攻防世界-逆向wp">
 <meta name="twitter:description" content="新手练习re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 game一个游戏通关后输出flag的题 先在IDA中shift+F12查找字符串，发现the flag">
-<meta name="twitter:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/1">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/1.png]">
 
 
 
@@ -358,8 +358,8 @@
 <h2 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h2><blockquote>
 <p>题目名字的意思好像是一个远程接入软件</p>
 </blockquote>
-<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/1" alt="1"></p>
-<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/2" alt="2"></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/1.png]" alt="1"></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/2.png" alt="2"></p>
 <p>简单的异或题，不过一开始跑出来是乱码，后来看了网上的wp才发现…</p>
 <p><strong>IDA里字符串常量已经加上了转义符号，也就是说那串字符串里没有反斜杠</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>**argv)</span></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> num = <span class="number">0x65626D61726168</span>LL;</span><br><span class="line">	<span class="keyword">char</span>* str = <span class="string">":\"AL_RT^L*.?+6/46"</span>;   <span class="comment">// len == 17</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">17</span>;i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c"</span>,*((<span class="keyword">char</span>*)&amp;num+i%<span class="number">7</span>)^str[i]); </span><br><span class="line">        <span class="comment">//*(&amp;num + i%7)  -&gt;  num[i%7]</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -372,7 +372,7 @@
 <p>我反正直接int当%c输出了…发现没啥问题</p>
 <p>如果要解释一下的话…可能是这个编码在32bits的高24位都为0时，和ASCII等价吧</p>
 </blockquote>
-<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/4" alt="4"></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/3.png" alt="3"></p>
 <p>解密部分，看了好久…</p>
 <p>总之就是38个字符都会减去某个数值x，x从一个5个数的数组中依次取</p>
 <p>一旦x取到数组结束，那么再从头开始</p>
@@ -384,7 +384,7 @@
 <p>反正计算偏移时，减去的是<strong>当前指令的下一条指令的地址</strong></p>
 </blockquote>
 <p>基本思路就是：让程序执行解密部分，再控制跳转到MessageBox函数</p>
-<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/3" alt="3"></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/4.png" alt="4"></p>
 
       
     </div>
