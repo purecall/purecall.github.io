@@ -364,7 +364,14 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"><span class="keyword">import</span> claripy</span><br><span class="line"></span><br><span class="line">proj = angr.Project(<span class="string">"./logmein"</span>)</span><br><span class="line">state = proj.factory.entry_state()</span><br><span class="line">simgr = proj.factory.simgr(state)</span><br><span class="line">simgr.explore(find=<span class="number">0x4007ac</span>)</span><br><span class="line"><span class="keyword">print</span> simgr.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="insanity"><a href="#insanity" class="headerlink" title="insanity"></a>insanity</h2><p>虽然没完全理解程序逻辑，不过既然flag都明文存好了……</p>
 <h2 id="no-strings-attached"><a href="#no-strings-attached" class="headerlink" title="no_strings_attached"></a>no_strings_attached</h2><p>不会，待更新</p>
-
+<h2 id="csaw2013reversing2"><a href="#csaw2013reversing2" class="headerlink" title="csaw2013reversing2"></a>csaw2013reversing2</h2><p>程序不会执行到解密部分，patch改控制流即可</p>
+<p>key-patcher好像有bug，还要我手动算jmp的偏移…</p>
+<blockquote>
+<p>反正计算偏移时，减去的是<strong>当前指令的下一条指令的地址</strong></p>
+</blockquote>
+<p>基本思路就是：让程序执行解密部分，再控制跳转到MessageBox函数</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/3" alt="3"></p>
+<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2>
           
         
       
