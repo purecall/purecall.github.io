@@ -349,7 +349,8 @@
 <p>我就是要用C解…</p>
 </blockquote>
 <h2 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h2><p>给了源码，值得注意的是命令行参数的问题</p>
-<p>比如输入<code>./hash 1 2 3</code>，这样<code>argc==4</code>，<code>argv[0]==&quot;./hash&quot;,argv[1]==&quot;1&quot;,argv[2]==&quot;2&quot;,argv[3]==&quot;3&quot;</code></p>
+<p>比如输入<code>./hash 1 2 3</code>，这样<code>argc==4</code></p>
+<p><code>argv[0]==&quot;./hash&quot;,argv[1]==&quot;1&quot;,argv[2]==&quot;2&quot;,argv[3]==&quot;3&quot;</code></p>
 <p>不过我试了试直接符号执行，发现终于成功了一次…记录于<a href="https://purecall.github.io/2019/01/13/符号执行-angr/" target="_blank" rel="noopener">符号执行-angr</a></p>
 <h2 id="simple2"><a href="#simple2" class="headerlink" title="simple2"></a>simple2</h2><p>从52pojie找了2个查壳工具，发现是upx壳，直接<code>upx -d</code>脱壳即可，flag是硬编码明文比较</p>
 <h2 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h2><blockquote>
