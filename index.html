@@ -334,15 +334,23 @@
       
         
           
-            <h1 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h1><p>最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来</p>
+            <h1 id="新手练习"><a href="#新手练习" class="headerlink" title="新手练习"></a>新手练习</h1><h2 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h2><p>最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来</p>
 <p>试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了</p>
 <p>后来尝试了下IDA的动态调试，在cmp处下断点就解决了</p>
-<h1 id="game"><a href="#game" class="headerlink" title="game"></a>game</h1><p>一个游戏通关后输出flag的题</p>
+<h2 id="game"><a href="#game" class="headerlink" title="game"></a>game</h2><p>一个游戏通关后输出flag的题</p>
 <p>先在IDA中<code>shift+F12</code>查找字符串，发现<code>the flag is</code>，跟踪到输出处</p>
 <p><del>认定前面没有陷阱之后</del>，发现就是2个字符数组的异或…</p>
 <blockquote>
 <p>还是得多刷题，一开始并没有想到查找字符串哎</p>
 </blockquote>
+<h2 id="Hello-CTF"><a href="#Hello-CTF" class="headerlink" title="Hello,CTF"></a>Hello,CTF</h2><p>一串硬编码的十六进制数据，转成字符串就可以了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>*s = <span class="string">"437261636b4d654a757374466f7246756e"</span>;</span><br><span class="line"><span class="keyword">int</span> num[] =&#123;</span><br><span class="line">    <span class="number">0x43</span>,<span class="number">0x72</span>,<span class="number">0x61</span>,<span class="number">0x63</span>,<span class="number">0x6b</span>,<span class="number">0x4d</span>,<span class="number">0x65</span>,<span class="number">0x4a</span>,<span class="number">0x75</span>,<span class="number">0x73</span>,<span class="number">0x74</span>,<span class="number">0x46</span>,<span class="number">0x6f</span>,<span class="number">0x72</span>,<span class="number">0x46</span>,<span class="number">0x75</span>,<span class="number">0x6e</span> </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(s);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i += <span class="number">2</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"0x%c%c,"</span>, s[i], s[i + <span class="number">1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//0x43,0x72,0x61,0x63,0x6b,0x4d,0x65,0x4a,0x75,0x73,0x74,0x46,0x6f,0x72,0x46,0x75,0x6e</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">17</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c"</span>, num[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//CrackMeJustForFun</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我就是要用C解…</p>
+</blockquote>
+<h2 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h2><p>给了源码，值得注意的是命令行参数的问题</p>
+<p>比如输入<code>./hash 1 2 3</code>，这样<code>argc==4</code>，<code>argv[0]==&quot;./hash&quot;,argv[1]==&quot;1&quot;,argv[2]==&quot;2&quot;,argv[3]==&quot;3&quot;</code></p>
+<p>不过我试了试直接符号执行，发现终于成功了一次…记录于<a href="https://purecall.github.io/2019/01/13/符号执行-angr/" target="_blank" rel="noopener">符号执行-angr</a></p>
 
           
         
