@@ -401,7 +401,30 @@
 <blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; nc -l 127.0.0.1 31337</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-
+<h2 id="rock"><a href="#rock" class="headerlink" title="rock"></a>rock</h2><p>C++的题，输出一个string</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/5.png" alt="5"></p>
+<p>后面的三个函数应该仅用于混淆</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/6.png" alt="6"></p>
+<p>这个函数的第一个参数应该是一个类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a-&gt;vtable = <span class="number">0x401bf0</span>;</span><br><span class="line">a-&gt;x = <span class="number">0</span>;</span><br><span class="line">a-&gt;input_1 = <span class="built_in">std</span>::<span class="built_in">string</span>(input);</span><br><span class="line">a-&gt;input_2 = <span class="built_in">std</span>::<span class="built_in">string</span>(input);</span><br><span class="line">a-&gt;string3 = <span class="string">"FLAG23456912365453475897834567"</span> + <span class="built_in">std</span>::<span class="built_in">string</span>(input);</span><br></pre></td></tr></table></figure>
+<p>虚表赋值，一个字段置0，后面2个字段保存输入的字符串，最后一个字段存放拼接的字符串</p>
+<p>跟进下一个对此类进行操作的函数</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/7.png" alt="7"></p>
+<p>首先检查长度为30，接下来是简单的字符操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    a-&gt;input[i] = (a-&gt;input[i] ^ <span class="number">0x50</span>) + <span class="number">20</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j++) &#123;</span><br><span class="line"> 	a-&gt;input[i] = (a-&gt;input[i] ^ <span class="number">0x10</span>) + <span class="number">9</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/7.png" alt="8"></p>
+<p>用于检查的函数，转换过后的字符串要等于类中最后一个字段保存的字符串</p>
+<p>而最后输出的flag就是我们保存的input副本，也就是输入值</p>
+<p>解密代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>**argv)</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span>* s = <span class="string">"FLAG23456912365453475897834567"</span>; <span class="comment">//len = 30</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">30</span>;i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c"</span>,(((s[i]<span class="number">-9</span>)^<span class="number">0x10</span>)<span class="number">-20</span>)^<span class="number">0x50</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提交flag的时候题目有问题…</p>
+<blockquote>
+<p>总结一下就是做C++逆向不要慌…</p>
+<p>去掉无关信息还是可以看的</p>
+<p>不过我不是很了解string这些的底层，指针引用等，逆向时只能选择相信出题人没有那么变态了</p>
+</blockquote>
+<h2 id="elf-re"><a href="#elf-re" class="headerlink" title="elf.re"></a>elf.re</h2><p>就是angr的第一个例题，提交flag格式仍然不对</p>
+<h2 id="re-for-50-plz-50"><a href="#re-for-50-plz-50" class="headerlink" title="re-for-50-plz-50"></a>re-for-50-plz-50</h2>
           
         
       
