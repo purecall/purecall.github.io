@@ -334,7 +334,8 @@
       
         
           
-            <h1 id="新手练习"><a href="#新手练习" class="headerlink" title="新手练习"></a>新手练习</h1><h2 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h2><p>最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来</p>
+            <p>to be a hardcore reverser</p>
+<h1 id="新手练习"><a href="#新手练习" class="headerlink" title="新手练习"></a>新手练习</h1><h2 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h2><p>最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来</p>
 <p>试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了</p>
 <p>后来尝试了下IDA的动态调试，在cmp处下断点就解决了</p>
 <h2 id="game"><a href="#game" class="headerlink" title="game"></a>game</h2><p>一个游戏通关后输出flag的题</p>
@@ -437,6 +438,24 @@
 <p>取消定义，看作代码，再看作函数过程</p>
 </blockquote>
 <p>不过平台上flag格式又不对</p>
+<h2 id="zorro-bin"><a href="#zorro-bin" class="headerlink" title="zorro_bin"></a>zorro_bin</h2><p>一开始理解错解题思路了</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/11.png" alt="11"></p>
+<p>第一个输入的数k，然后就让输入k个值，一堆异或之后得到<code>seed</code>，这里需要注意到，因为seed的取值会被检验，取值集合是固定的，而一堆数异或就等价于一个数异或，也就是说这里k的取值无关紧要，因此我们令<code>k=1</code>即可</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/12.png" alt="12"></p>
+<p>然后就是常见的随机种子固定，<code>rand()</code>的输出序列固定了</p>
+<p>是可以爆破出所有的seed值，也就是k=1时输入的那个值，但是没有必要，因为得到了取值集合之后还是需要一个一个喂给程序</p>
+<p>由于范围不大，我们直接爆破<code>1-65535</code>即可，不符合的值会让程序直接退出，没有必要先爆破可能的seed值再喂</p>
+<p>其中只有输入预期的seed值时，才会通过<code>MD5</code>检验，可以考虑把jz改成jmp，但是没有必要，因为输入了错误的seed时，flag也是乱码，让程序直接退出也是一样的</p>
+<p>最后给出wp中的<code>shell</code>脚本</p>
+<blockquote>
+<p>有时间学一下shell脚本的使用，想着可以用pwn的思路起进程，不过比较麻烦</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in $(seq 1 65535); do echo -e "1\n$i" | ./zorro_bin | grep -i nullcon ; done</span><br></pre></td></tr></table></figure>
+<p>这个脚本”猜测”了flag中会出现<code>nullcon</code>，也可以人工看……</p>
+<p>最后输出 <code>The flag is nullcon{nu11c0n_s4yz_x0r1n6_1s_4m4z1ng}</code></p>
+<blockquote>
+<p>最后的思考：MD5占用了程序运行的很多时间，如果seed的取值范围更大，可以考虑nop掉</p>
+</blockquote>
 
           
         
