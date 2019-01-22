@@ -394,7 +394,7 @@
 <h2 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h2><p>迷宫问题，<a href="https://my.oschina.net/u/3763247/blog/1805781" target="_blank" rel="noopener">参考链接</a></p>
 <h1 id="萌新入坑"><a href="#萌新入坑" class="headerlink" title="萌新入坑"></a>萌新入坑</h1><h2 id="reverse100"><a href="#reverse100" class="headerlink" title="reverse100"></a>reverse100</h2><p>.NET平台的逆向，exe文件，题目名字叫apk…</p>
 <p>网上找了个ILSpy，反编译</p>
-<p>~~算了还是直接搜wp吧~</p>
+<p><del>算了还是直接搜wp吧</del></p>
 <p>程序会往本地31337端口发flag，于是用python写个监听的脚本</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> BaseHTTPServer</span><br><span class="line">server_address = (<span class="string">'127.0.0.1'</span>, <span class="number">31337</span>)</span><br><span class="line">handler_class = BaseHTTPServer.BaseHTTPRequestHandler</span><br><span class="line">httpd = BaseHTTPServer.HTTPServer(server_address, handler_class)</span><br><span class="line">httpd.serve_forever()</span><br></pre></td></tr></table></figure>
 <p>就这么收到了flag，虽然不知道程序里具体flag在哪</p>
@@ -456,6 +456,11 @@
 <blockquote>
 <p>最后的思考：MD5占用了程序运行的很多时间，如果seed的取值范围更大，可以考虑nop掉</p>
 </blockquote>
+<h2 id="pingpong待做"><a href="#pingpong待做" class="headerlink" title="pingpong待做"></a>pingpong待做</h2><p>BCTF2017的题，android没有接触过，先放一下了</p>
+<p><a href="https://blog.csdn.net/jasalee/article/details/70242837" target="_blank" rel="noopener">wp1</a></p>
+<p><a href="https://www.xctf.org.cn/library/details/4cc5aad6db793bd6786b0f2a7e389ab7f37a1db3/" target="_blank" rel="noopener">wp2</a></p>
+<h2 id="licensable待做"><a href="#licensable待做" class="headerlink" title="licensable待做"></a>licensable待做</h2><p>感觉应该要黑盒逆，以前熟悉过的OD现在全忘了…</p>
+<p>存着吧，附：<a href="https://github.com/TeamContagion/CTF-Write-Ups/blob/master/ASIS-Finals-2016/Licensable/readme.md" target="_blank" rel="noopener">wp</a></p>
 
           
         
