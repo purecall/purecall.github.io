@@ -494,7 +494,8 @@
 <blockquote>
 <p>这里应该是迭代器相同就退出，而不是迭代器中的字符相同</p>
 </blockquote>
-<p>一顿分析以后发现，密文：L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t</p>
+<p>一顿分析以后发现，密文：</p>
+<p>L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t</p>
 <p><img src="/2019/01/20/XCTF攻防世界-逆向wp/20.png" alt="20"></p>
 <p>正确的flag就是密文错位后的结果</p>
 <p>不过这里内层的数组好像有点问题，因为是逐字符比较，gdb动态调一下</p>

@@ -107,7 +107,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/18.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/19.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/20.png">
-<meta property="og:updated_time" content="2019-01-24T09:10:14.661Z">
+<meta property="og:updated_time" content="2019-01-24T11:08:52.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XCTF攻防世界-逆向wp">
 <meta name="twitter:description" content="to be a hardcore reverser 新手练习re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 game一个游戏通关后输出flag的题 先在IDA">
@@ -512,7 +512,8 @@
 <blockquote>
 <p>这里应该是迭代器相同就退出，而不是迭代器中的字符相同</p>
 </blockquote>
-<p>一顿分析以后发现，密文：L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t</p>
+<p>一顿分析以后发现，密文：</p>
+<p>L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t</p>
 <p><img src="/2019/01/20/XCTF攻防世界-逆向wp/20.png" alt="20"></p>
 <p>正确的flag就是密文错位后的结果</p>
 <p>不过这里内层的数组好像有点问题，因为是逐字符比较，gdb动态调一下</p>
