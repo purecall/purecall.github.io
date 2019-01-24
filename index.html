@@ -505,6 +505,19 @@
 <blockquote>
 <p>逐字符比较，尝试patch掉跳转指令，直接动态调试</p>
 </blockquote>
+<h2 id="Catch-Me待做"><a href="#Catch-Me待做" class="headerlink" title="Catch_Me待做"></a>Catch_Me待做</h2><p>题目给的附件有点问题好像</p>
+<p><a href="https://github.com/raccoons-team/ctf/tree/master/2016-05-07-asis-ctf-quals/catch_me" target="_blank" rel="noopener">参考链接</a></p>
+<p><a href="http://vladz.devzero.fr/016_ASIS-CTF-catchme.html" target="_blank" rel="noopener">参考链接</a></p>
+<p>wp完全看不懂</p>
+<h2 id="rev100"><a href="#rev100" class="headerlink" title="rev100"></a>rev100</h2><p>解压后看起来是个十六进制文件</p>
+<p>用<code>xxd</code>让它恢复到原来的样子</p>
+<p><code>xxd -r -p rev100</code></p>
+<blockquote>
+<p>好吧，大部分都是垃圾文字，但是中间夹杂着一下ASCII字母，可以看到flag…什么的。每个’h’后面都有两个有用的，我们把他们挑出来：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash $ sed <span class="string">"s/ / /g"</span> rev100 | xxd -r | strings -n 1 | grep <span class="string">'^h'</span> | cut -c 2- | tr -d <span class="string">'\n'</span></span><br></pre></td></tr></table></figure>
+<p>flag{poppopret}</p>
+<p>这题…乏趣</p>
 
           
         
