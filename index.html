@@ -461,6 +461,34 @@
 <p><a href="https://www.xctf.org.cn/library/details/4cc5aad6db793bd6786b0f2a7e389ab7f37a1db3/" target="_blank" rel="noopener">wp2</a></p>
 <h2 id="licensable待做"><a href="#licensable待做" class="headerlink" title="licensable待做"></a>licensable待做</h2><p>感觉应该要黑盒逆，以前熟悉过的OD现在全忘了…</p>
 <p>存着吧，附：<a href="https://github.com/TeamContagion/CTF-Write-Ups/blob/master/ASIS-Finals-2016/Licensable/readme.md" target="_blank" rel="noopener">wp</a></p>
+<h2 id="RM"><a href="#RM" class="headerlink" title="RM"></a>RM</h2><p>序列号就是flag</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/13.png" alt="13"></p>
+<h2 id="baby-flash-222"><a href="#baby-flash-222" class="headerlink" title="baby_flash-222"></a>baby_flash-222</h2><p><a href="https://www.xctf.org.cn/library/details/e0d90ad9d0609320fd6743706135a80913d27b8d/" target="_blank" rel="noopener">官方wp</a></p>
+<p>C++编译到flash的题目，wp中有swf文件的反编译，待做</p>
+<h2 id="easyre-153"><a href="#easyre-153" class="headerlink" title="easyre-153"></a>easyre-153</h2><p>IDA打开发现没有main，我又忘记<strong>查壳</strong>了</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/14.png" alt="14"></p>
+<p><code>upx -d</code>后，程序流程中输入当前子进程的pid</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/15.png" alt="15"></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/16.png" alt="16"></p>
+<p>然后就会输出假的flag……</p>
+<p>在IDA里有这一段</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/17.png" alt="17"></p>
+<p>lol是输出的函数，不过没看出来buf和输出有什么关联</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/18.png" alt="18"></p>
+<p><del>好吧还是看writeup吧</del></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/19.png" alt="19"></p>
+<p>因为<code>1!=0</code>，所以永远会跳转到loc_80486D3，可以修改跳转指令，也可以直接通过lol的算法取得</p>
+<blockquote>
+<p>这可能是upx加壳后的问题，反编译后看不到这一段，还是得看看汇编</p>
+<p>flag在这段”花指令”中……还是太年轻了</p>
+</blockquote>
+<p>修改跳转指令后，运行输入pid即可得到flag</p>
+<p>另外，发现<del>(看了wp以后猜测)</del>这段数据经过一些算法就是flag</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>**argv)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span>*a1 = <span class="string">"69800876143568214356928753"</span>;</span><br><span class="line">	<span class="keyword">char</span> flag[<span class="number">7</span>]; </span><br><span class="line">	flag[<span class="number">0</span>] = <span class="number">2</span> * a1[<span class="number">1</span>];</span><br><span class="line">	flag[<span class="number">1</span>] = a1[<span class="number">4</span>] + a1[<span class="number">5</span>];</span><br><span class="line">	flag[<span class="number">2</span>] = a1[<span class="number">8</span>] + a1[<span class="number">9</span>];</span><br><span class="line">	flag[<span class="number">3</span>] = <span class="number">2</span> * a1[<span class="number">12</span>];</span><br><span class="line">	flag[<span class="number">4</span>] = a1[<span class="number">18</span>] + a1[<span class="number">17</span>];</span><br><span class="line">	flag[<span class="number">5</span>] = a1[<span class="number">10</span>] + a1[<span class="number">21</span>];</span><br><span class="line">	flag[<span class="number">6</span>] = a1[<span class="number">9</span>] + a1[<span class="number">25</span>];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c"</span>, flag[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接当作char型运算即可，不用转换</p>
+<blockquote>
+<p>总结一下： 查壳，遇到假flag时看看汇编，也许flag在”花指令”中</p>
+</blockquote>
 
           
         
