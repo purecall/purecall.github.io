@@ -519,6 +519,26 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash $ sed <span class="string">"s/ / /g"</span> rev100 | xxd -r | strings -n 1 | grep <span class="string">'^h'</span> | cut -c 2- | tr -d <span class="string">'\n'</span></span><br></pre></td></tr></table></figure>
 <p>flag{poppopret}</p>
 <p>这题…乏趣</p>
+<h2 id="reverseme120"><a href="#reverseme120" class="headerlink" title="reverseme120"></a>reverseme120</h2><p>这个题卡了很久……经验不足</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/21.png" alt="21"></p>
+<p>第一个函数对输入字符串v11进行了操作，不过很迷……根本看不出来它在干嘛</p>
+<p>当时就一直在逆这部分的逻辑</p>
+<p>后来看了wp才发现其中一段关键代码与base64有关</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/22.png" alt="22"></p>
+<p>wp说显然这个这一串数组是base64的码表…<del>对不起我不认识</del></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/23.png" alt="23"></p>
+<p>黑盒测出v13就是base64加密后的结果</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/24.png" alt="24"></p>
+<p>这里TM竟然是分两部分异或0x25……</p>
+<p>最后解密就简单了….</p>
+<p>把固定的字符串<code>you_know_how_to_remove_junk_code</code>异或0x25</p>
+<p>得到<code>\JPzNKJRzMJRzQJzW@HJS@zOPKNzFJA@</code></p>
+<p>再base64加密，<code>XEpQek5LSlJ6TUpSelFKeldASEpTQHpPUEtOekZKQUA</code></p>
+<blockquote>
+<p>base64的原理之前了解不多，试了试”@@@@”这种也可以加密…</p>
+<p>关于做题：各种查表需要熟悉…</p>
+<p>多动态调试，看看字符串被处理成什么样了</p>
+</blockquote>
 
           
         
