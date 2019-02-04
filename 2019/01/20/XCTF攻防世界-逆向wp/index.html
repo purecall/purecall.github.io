@@ -120,7 +120,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/31.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/32.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/33.png">
-<meta property="og:updated_time" content="2019-02-04T16:36:42.633Z">
+<meta property="og:updated_time" content="2019-02-04T16:40:46.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XCTF攻防世界-逆向wp">
 <meta name="twitter:description" content="to be a hardcore reverser 新手练习re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 game一个游戏通关后输出flag的题 先在IDA">
@@ -681,26 +681,15 @@
 <p>第三个检查，感觉没什么意思(不太喜欢图片那些)，贴wp了</p>
 <blockquote>
 <p>flag3和flag2的算法一样，只是flag3长度为16位，很难破解查询，但随后提供了一个方法可以获取到flag3。如下：</p>
-<ol>
-<li><p>取flag2的哈希（16进制）的16字节之和（记为total），然后使用total产生两个值。 x1 = total/16 x2 = total%16</p>
-</li>
-<li><p>将x1和x2分别和flag3的第4、5位进行异或得到xor1和xor2，即</p>
-</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; xor1 = x1^flag3[<span class="number">3</span>]</span><br><span class="line">&gt; xor2 = x1^flag3[<span class="number">4</span>]<span class="number">3</span>) </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>1)取flag2的哈希（16进制）的16字节之和（记为total），然后使用total产生两个值。 x1 = total/16 x2 = total%16</p>
+<p>2)将x1和x2分别和flag3的第4、5位进行异或得到xor1和xor2，即</p>
 </blockquote>
-<p>&gt;</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xor1 = x1^flag3[<span class="number">3</span>]</span><br><span class="line">xor2 = x1^flag3[<span class="number">4</span>])</span><br></pre></td></tr></table></figure>
 <blockquote>
-<ol>
-<li><p>全局变量中预置了一段数据data，将上面的xor1和xor2分别和data的奇偶字节进行异或得到数据data1，使用fwrite写入文件</p>
-</li>
-<li><p>只要输入的flag3[3]、 flag3[4]合适，就会产生一张图片，里面记录了完整的flag3。</p>
-</li>
-<li><p>所以需要通过写文件这个操作能联想到写入的文件是图片文件，然后根据图片文件的头部固定字节就可以反推出flag3[3]、 flag3[4]</p>
-</li>
-<li><p>本来开始是在写文件的时候加上后缀，这样就可以降低题目难度，后面想了下还是先不加后缀，可以将这个后缀放到提示里面。</p>
-</li>
-</ol>
+<p>3)全局变量中预置了一段数据data，将上面的xor1和xor2分别和data的奇偶字节进行异或得到数据data1，使用fwrite写入文件</p>
+<p>4)只要输入的flag3[3]、 flag3[4]合适，就会产生一张图片，里面记录了完整的flag3。</p>
+<p>5)所以需要通过写文件这个操作能联想到写入的文件是图片文件，然后根据图片文件的头部固定字节就可以反推出flag3[3]、 flag3[4]</p>
+<p>6)本来开始是在写文件的时候加上后缀，这样就可以降低题目难度，后面想了下还是先不加后缀，可以将这个后缀放到提示里面。</p>
 </blockquote>
 <p>​                                    </p>
 <p>另外一个wp提到，2个char数据可以爆破，因为出题人给了一张png，所以可以查找图片头尾字段</p>
