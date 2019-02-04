@@ -1344,7 +1344,7 @@ S = {2x | x∈N,x≤10}</script><p>竖线左边是输出函数，x是变量，N�
 <p>还是得看看《加密与解密》</p>
 <h2 id="家徒四壁-void"><a href="#家徒四壁-void" class="headerlink" title="家徒四壁-void"></a>家徒四壁-void</h2><p>hitcon2017的题….elf注入</p>
 <p>对不起，看不懂</p>
-<p><img src="https://azure.kdays.cn/2017/11/08/HITCON2017-writeup/" alt="wp"></p>
+<p><a href="https://azure.kdays.cn/2017/11/08/HITCON2017-writeup/" target="_blank" rel="noopener">wp</a></p>
 <p>攻防世界的wp比较详细，但是我看不懂</p>
 <h2 id="debg-exe"><a href="#debg-exe" class="headerlink" title="debg.exe"></a>debg.exe</h2><p>没打错，题目就是叫<code>debg</code></p>
 <p>又是一个.net逆向，发现做过的几题都是下断点然后就明文比较出flag了…..</p>
@@ -1352,6 +1352,46 @@ S = {2x | x∈N,x≤10}</script><p>竖线左边是输出函数，x是变量，N�
 <p><img src="/2019/01/20/XCTF攻防世界-逆向wp/31.png" alt="31"></p>
 <blockquote>
 <p>吐槽一句，这个平台上的难度评级就是闹着玩的…</p>
+</blockquote>
+<h2 id="HW-RE"><a href="#HW-RE" class="headerlink" title="HW-RE"></a>HW-RE</h2><p>18年国赛的一题</p>
+<p>通过<code>strtok</code>切割flag，flag类似于<code>CISCN{flag1_flag2_flag3}</code></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/32.png" alt="32"></p>
+<p>第二、三段存入变量显示是循环+数组方式，实际上是后文会直接用到的一个变量，观察栈布局偏移可以看出来</p>
+<p>后面就是把这三段flag分别检查了</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/33.png" alt="33"></p>
+<p>第一个检查我感觉各种wp不太严谨</p>
+<p>前面一大段是一个md5，不过一开始不太好猜，后面是根据加密过的hash值反推出原本的hash值再去查找</p>
+<blockquote>
+<p>wp说：明文hash中的A-F字符，经过运算后可以生成大于F的字符，这样就可以反推出原来hash里的字符</p>
+<p>问题：比如字符K，可能是由A-F经过运算得出的，也可能本身就是K</p>
+<p>（没有仔细分析，也有可能前面限制了明文hash中英文字母都是A-F）</p>
+</blockquote>
+<p>不管了，跳过这一步，就认为原来明文hash英文字母都是A-F</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check1</span><span class="params">(str0)</span>:</span></span><br><span class="line">    flagmd5 = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(str0)):</span><br><span class="line">        temp = ord(str0[i])-i%<span class="number">10</span></span><br><span class="line">        <span class="keyword">if</span> temp &lt;= ord(<span class="string">'A'</span>) + <span class="number">5</span> <span class="keyword">and</span> temp &gt;= ord(<span class="string">'A'</span>):</span><br><span class="line">            flagmd5 += chr(temp)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            flagmd5 += str0[i]</span><br><span class="line">    <span class="keyword">return</span> flagmd5</span><br></pre></td></tr></table></figure>
+<p>解密后结果：<code>yubu</code></p>
+<p>第二个检查：</p>
+<p>明文hash异或一组数据后，再经过前面检查的同样的运算，得到一个hash</p>
+<p>解密：先同样用上面的方法，再异或，最后查询md5，得到<code>kulo</code></p>
+<p>第三个检查，感觉没什么意思(不太喜欢图片那些)，贴wp了</p>
+<blockquote>
+<p>flag3和flag2的算法一样，只是flag3长度为16位，很难破解查询，但随后提供了一个方法可以获取到flag3。如下：</p>
+<p>1) 取flag2的哈希（16进制）的16字节之和（记为total），然后使用total产生两个值。 x1 = total/16 x2 = total%16</p>
+<p>2) 将x1和x2分别和flag3的第4、5位进行异或得到xor1和xor2，即</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">xor</span><span class="number">1</span> = x<span class="number">1</span>^fla<span class="name">g3</span>[<span class="number">3</span>]</span><br><span class="line">&gt; <span class="keyword">xor</span><span class="number">2</span> = x<span class="number">1</span>^fla<span class="name">g3</span>[<span class="number">4</span>]</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>3) 全局变量中预置了一段数据data，将上面的xor1和xor2分别和data的奇偶字节进行异或得到数据data1，使用fwrite写入文件</p>
+<p> 4) 只要输入的flag3[3]、 flag3[4]合适，就会产生一张图片，里面记录了完整的flag3。 5) 所以需要通过写文件这个操作能联想到写入的文件是图片文件，然后根据图片文件的头部固定字节就可以反推出flag3[3]、 flag3[4]</p>
+<p> 6) 本来开始是在写文件的时候加上后缀，这样就可以降低题目难度，后面想了下还是先不加后缀，可以将这个后缀放到提示里面。</p>
+</blockquote>
+<p>​                                    </p>
+<p>另外一个wp提到，2个char数据可以爆破，因为出题人给了一张png，所以可以查找图片头尾字段</p>
+<p><a href="https://blog.csdn.net/aptx4869_li/article/details/80589250" target="_blank" rel="noopener">wp2</a></p>
+<blockquote>
+<p>题目做到这里，感觉md5、hash的那些还是需要一些直觉</p>
+<p>看到一堆函数，一段类似(加密过的)hash，应该先解密原先的hash，而不是直接拿头逆函数</p>
+<p>还有就是代码里有一段malloc没看懂，也许是混淆？感觉没什么用</p>
 </blockquote>
 
           
