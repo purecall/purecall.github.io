@@ -1467,6 +1467,14 @@ S = {2x | x∈N,x≤10}</script><p>竖线左边是输出函数，x是变量，N�
 <p><img src="/2019/01/20/XCTF攻防世界-逆向wp/28.png" alt="28"></p>
 <p>每10个字符为一块，原本的1234共四个字符串的排列转变成为3412的排列顺序，变化排列顺序后</p>
 <p>与<code>{daf29f59034938ae4efd53fc275d81053ed5be8c}</code>进行比较</p>
+<h2 id="re3-100待做"><a href="#re3-100待做" class="headerlink" title="re3-100待做"></a>re3-100待做</h2><blockquote>
+<p>千万不要运行这个程序，如果想体验死机的话当我没说</p>
+</blockquote>
+<p>这个**程序，一般IDA看的复杂都交互一下吧…结果一个输入，开始满屏弹窗cmd，还在目录里面创建了几万个文件夹我艹，虚拟机卡死任务管理器都开不出来</p>
+<p>最后继续运行虚拟机，让它继续弹窗，几秒钟后内存占用17G，最后在活动监视器里杀掉进程，向运维投诉…</p>
+<blockquote>
+<p>不过看了wp以后发现，这题是一个pyc的exe，存了wp再说</p>
+</blockquote>
 <h2 id="gametime"><a href="#gametime" class="headerlink" title="gametime"></a>gametime</h2><p>题目比较简单，基本就是看到需要的字符时就按下回车</p>
 <p><img src="/2019/01/20/XCTF攻防世界-逆向wp/29.png" alt="29"></p>
 <p>失败的话会输出FAILURE</p>
@@ -1481,6 +1489,8 @@ S = {2x | x∈N,x≤10}</script><p>竖线左边是输出函数，x是变量，N�
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">yanghui_trangle</span><span class="params">(n)</span>:</span> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_yanghui_trangle</span><span class="params">(n, result)</span>:</span> </span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>: </span><br><span class="line">            <span class="keyword">return</span> [<span class="number">1</span>] </span><br><span class="line">        <span class="keyword">else</span>: </span><br><span class="line">            <span class="keyword">return</span> [sum(i) <span class="keyword">for</span> i <span class="keyword">in</span> zip([<span class="number">0</span>] + result, result + [<span class="number">0</span>])] </span><br><span class="line"></span><br><span class="line">    pre_result = [] </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(n): </span><br><span class="line">        pre_result = _yanghui_trangle(i + <span class="number">1</span>, pre_result) </span><br><span class="line">    <span class="keyword">yield</span> pre_result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">all_lines = <span class="string">""</span> </span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> yanghui_trangle(<span class="number">20</span>): </span><br><span class="line">    all_lines += <span class="string">""</span>.join([str(c) <span class="keyword">for</span> c <span class="keyword">in</span> line]) </span><br><span class="line">    <span class="keyword">print</span> all_lines </span><br><span class="line">t_md5 = hashlib.md5() </span><br><span class="line">t_md5.update(all_lines) </span><br><span class="line"><span class="keyword">print</span> <span class="string">"RCTF&#123;%s&#125;"</span>%t_md5.hexdigest()</span><br></pre></td></tr></table></figure>
 <p>不过官方exp出的flag也不对…….</p>
+<h2 id="CRACKME"><a href="#CRACKME" class="headerlink" title="CRACKME"></a>CRACKME</h2><p><a href="https://blog.csdn.net/whklhhhh/article/details/78005589" target="_blank" rel="noopener">夜影wp</a></p>
+<p>mfc写的，无壳，不能直接反编译</p>
 <h1 id="高手进阶"><a href="#高手进阶" class="headerlink" title="高手进阶"></a>高手进阶</h1><h2 id="Newbie-calculations"><a href="#Newbie-calculations" class="headerlink" title="Newbie_calculations"></a>Newbie_calculations</h2><p>程序会自己跑出flag，主要是代码中用了故意耗时的计算函数</p>
 <p>都是加减乘，分析一下不难看出，网上找了一个改好函数名的代码</p>
 <p>每一位字符都是独立的</p>
