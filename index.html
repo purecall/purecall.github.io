@@ -339,13 +339,25 @@
 <p>注册后发现有好多视频教程和教学课件</p>
 <p>学吧，谁让我这么垃圾呢</p>
 </blockquote>
-<h1 id="常见工具和壳的特征"><a href="#常见工具和壳的特征" class="headerlink" title="常见工具和壳的特征"></a>常见工具和壳的特征</h1><p>前面主要介绍了PEID，exeinfo等工具</p>
+<h1 id="s识别壳"><a href="#s识别壳" class="headerlink" title="s识别壳"></a>s识别壳</h1><p>前面主要介绍了PEID，exeinfo等工具</p>
 <blockquote>
 <p>易语言写的程序分为独立编译和非独立编译</p>
 <p>一般使用微软的链接器，于是会被识别成VC程序</p>
 <p>判断时，可以识别一些特征字符串</p>
 </blockquote>
-<h2 id="课上例子"><a href="#课上例子" class="headerlink" title="课上例子"></a>课上例子</h2><p><img src="/2019/02/05/吾爱破解教程学习/1.png" alt="1"></p>
+<p><img src="/2019/02/05/吾爱破解教程学习/1.png" alt="1"></p>
+<p>如果OD给出了信息，这时可以先选<strong>否</strong>，如果之后发现没有加壳，再进行分析</p>
+<p><img src="/2019/02/05/吾爱破解教程学习/2.png" alt="2"></p>
+<p>从区段信息里可以获得一些壳的特征，不过这里的<code>aspack</code>是可以改的，比如改成<code>upx</code>…</p>
+<p><img src="/2019/02/05/吾爱破解教程学习/3.png" alt="3"></p>
+<p>VMP壳的入口特征看起来很乱，看区段特征，会保留原先的代码段、数据段，并把资源段放在最后</p>
+<p>并且，会添加几个区段，比如<code>vmp0,vmp1</code>，不过这个名字也会改，但是<strong>其中的0和1一般是不变的</strong>，可能会改成<code>upx0,upx1</code></p>
+<p><img src="/2019/02/05/吾爱破解教程学习/4.png" alt="4"></p>
+<p><code>SE</code>壳，默认有<strong>两个</strong>区段名为<code>sedata</code>，不过也可以改，但是改完以后名字还是一样的，比如<code>upx,upx</code></p>
+<p>本例中，第一个JMP结束后，跟进第二个JMP</p>
+<p><img src="/2019/02/05/吾爱破解教程学习/5.png" alt="5"></p>
+<p>会看到一堆莫名其妙的代码，这时用OD的分析，会发现特征字符串</p>
+<p><img src="/2019/02/05/吾爱破解教程学习/6.png" alt="6"></p>
 
           
         
