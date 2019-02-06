@@ -117,10 +117,16 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/28.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/29.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/30.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/34.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/35.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/36.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/37.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/38.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/39.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/31.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/32.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/XCTF攻防世界-逆向wp/33.png">
-<meta property="og:updated_time" content="2019-02-05T17:08:32.130Z">
+<meta property="og:updated_time" content="2019-02-06T06:26:05.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XCTF攻防世界-逆向wp">
 <meta name="twitter:description" content="to be a hardcore reverser 新手练习re1最简单的exe题…wp说直接strings就好，不过一开始字符串被打散了，不好直接看出来 试着直接符号执行，惊讶的是exe在ubuntu的angr里直接跑起来了，不过占资源太多被杀掉好几次，设置了系统参数也没办法解决，就放弃了 后来尝试了下IDA的动态调试，在cmp处下断点就解决了 game一个游戏通关后输出flag的题 先在IDA">
@@ -642,7 +648,41 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">yanghui_trangle</span><span class="params">(n)</span>:</span> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_yanghui_trangle</span><span class="params">(n, result)</span>:</span> </span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>: </span><br><span class="line">            <span class="keyword">return</span> [<span class="number">1</span>] </span><br><span class="line">        <span class="keyword">else</span>: </span><br><span class="line">            <span class="keyword">return</span> [sum(i) <span class="keyword">for</span> i <span class="keyword">in</span> zip([<span class="number">0</span>] + result, result + [<span class="number">0</span>])] </span><br><span class="line"></span><br><span class="line">    pre_result = [] </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(n): </span><br><span class="line">        pre_result = _yanghui_trangle(i + <span class="number">1</span>, pre_result) </span><br><span class="line">    <span class="keyword">yield</span> pre_result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">all_lines = <span class="string">""</span> </span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> yanghui_trangle(<span class="number">20</span>): </span><br><span class="line">    all_lines += <span class="string">""</span>.join([str(c) <span class="keyword">for</span> c <span class="keyword">in</span> line]) </span><br><span class="line">    <span class="keyword">print</span> all_lines </span><br><span class="line">t_md5 = hashlib.md5() </span><br><span class="line">t_md5.update(all_lines) </span><br><span class="line"><span class="keyword">print</span> <span class="string">"RCTF&#123;%s&#125;"</span>%t_md5.hexdigest()</span><br></pre></td></tr></table></figure>
 <p>不过官方exp出的flag也不对…….</p>
 <h2 id="CRACKME"><a href="#CRACKME" class="headerlink" title="CRACKME"></a>CRACKME</h2><p><a href="https://blog.csdn.net/whklhhhh/article/details/78005589" target="_blank" rel="noopener">夜影wp</a></p>
-<p>mfc写的，无壳，不能直接反编译</p>
+<p>无壳，没有main函数，看上去是MFC写的(别人说的)</p>
+<p>字符串窗口中也没有相关显示</p>
+<p>看<code>MessageBox</code>的交叉引用，发现有两个函数调用了它</p>
+<p>看汇编时发现这两个函数的call都是来源于同一个函数，并且还是分支关系</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/34.png" alt="34"></p>
+<p>在IDA中按P，再F5</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/35.png" alt="35"></p>
+<blockquote>
+<p>回到汇编状态找到sub_401720和sub_4016e0的地址，在OD中下断，再点击注册按钮果然被401720断下来了，说明这里就是关键跳</p>
+</blockquote>
+<p>if的判断中是关键的flag_check</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/36.png" alt="36"></p>
+<p>初始以10作为种子，rand[0]为0x47（71）；以1作为种子，rand[0]为0x29（41）<br>也就是说seed代入数组运算时恒为1</p>
+<blockquote>
+<p>MFC的updateData可以理解为读入字符串</p>
+</blockquote>
+<p>因为这里是指针调用函数，if的条件又太乱了，直接看汇编</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/37.png" alt="37"></p>
+<p>看出要求输出的字符串长度为0x21，然后进行检查（再回去看看F5的结果也能得到）</p>
+<p>这种直接把输入进去比较，当然是直接动态调了</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/38.png" alt="38"></p>
+<p>可以直接断几十次记录下应有的输入，第一个是0x68也就是f</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/39.png" alt="39"></p>
+<p>不过这里既然已经分析出逻辑了</p>
+<p><code>v3[v5 + 96 + seed]  // (v3+97)[10x]</code></p>
+<p>找到这个字符串，IDA里提取一下</p>
+<p>输出第(10n+1)个字符就可以了</p>
+<p><code>flag{The-Y3ll0w-turb4ns-Upri$ing}</code></p>
+<p>有一点问题就是……没看出来为什么a2就是我们的输入</p>
+<blockquote>
+<p>最后的一些思考：</p>
+<p>又学习到了srand、rand的一个特性，通过初始种子，随机出的第一个数经过一定运算再作为种子，输出随机数，以此往复，最后输出的值可以是固定的</p>
+<p>还有就是一长串字符串，跳着比较输出，可以一定的混淆</p>
+<p>MFC程序的一些特征，API等</p>
+</blockquote>
 <h1 id="高手进阶"><a href="#高手进阶" class="headerlink" title="高手进阶"></a>高手进阶</h1><h2 id="Newbie-calculations"><a href="#Newbie-calculations" class="headerlink" title="Newbie_calculations"></a>Newbie_calculations</h2><p>程序会自己跑出flag，主要是代码中用了故意耗时的计算函数</p>
 <p>都是加减乘，分析一下不难看出，网上找了一个改好函数名的代码</p>
 <p>每一位字符都是独立的</p>
