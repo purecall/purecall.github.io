@@ -1278,9 +1278,7 @@ S = {2x | x∈N,x≤10}</script><p>竖线左边是输出函数，x是变量，N�
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> BaseHTTPServer</span><br><span class="line">server_address = (<span class="string">'127.0.0.1'</span>, <span class="number">31337</span>)</span><br><span class="line">handler_class = BaseHTTPServer.BaseHTTPRequestHandler</span><br><span class="line">httpd = BaseHTTPServer.HTTPServer(server_address, handler_class)</span><br><span class="line">httpd.serve_forever()</span><br></pre></td></tr></table></figure>
 <p>就这么收到了flag，虽然不知道程序里具体flag在哪</p>
 <p>原来直接nc就可以了…</p>
-<blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; nc -l 127.0.0.1 31337</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l 127.0.0.1 31337</span><br></pre></td></tr></table></figure>
 <h2 id="rock"><a href="#rock" class="headerlink" title="rock"></a>rock</h2><p>C++的题，输入一个string</p>
 <p><img src="/2019/01/20/XCTF攻防世界-逆向wp/5.png" alt="5"></p>
 <p>后面的三个函数应该仅用于混淆</p>
