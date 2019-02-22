@@ -1585,6 +1585,15 @@ S = {2x | x∈N,x≤10}</script><p>竖线左边是输出函数，x是变量，N�
 <h2 id="what-does-this-button-do"><a href="#what-does-this-button-do" class="headerlink" title="what-does-this-button-do"></a>what-does-this-button-do</h2><p>jar文件，看到<code>FlagActivity()</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (;;)&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= <span class="number">22</span>)&#123;</span><br><span class="line">        ((TextView)findViewById(<span class="number">2131230721</span>)).setText(paramBundle);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">	paramBundle = paramBundle.concat(String.valueOf((<span class="keyword">char</span>)<span class="keyword">new</span> <span class="keyword">int</span>[] &#123; <span class="number">102</span>, <span class="number">108</span>, <span class="number">97</span>, <span class="number">103</span>, <span class="number">123</span>, <span class="number">119</span>, <span class="number">52</span>, <span class="number">110</span>, <span class="number">110</span>, <span class="number">52</span>, <span class="number">95</span>, <span class="number">106</span>, <span class="number">52</span>, <span class="number">114</span>, <span class="number">95</span>, <span class="number">109</span>, <span class="number">121</span>, <span class="number">95</span>, <span class="number">100</span>, <span class="number">51</span>, <span class="number">120</span>, <span class="number">125</span> &#125;[i]));</span><br><span class="line">	i += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>直接转成ASCII，<code>flag{w4nn4_j4r_my_d3x}</code></p>
+<h2 id="Sharif-app"><a href="#Sharif-app" class="headerlink" title="Sharif_app"></a>Sharif_app</h2><p>反编译之后</p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/40.png" alt="40"></p>
+<p>看到关键逻辑是<code>isCorrect</code>函数，还提到了<code>Native</code></p>
+<p><img src="/2019/01/20/XCTF攻防世界-逆向wp/41.png" alt="41"></p>
+<p>apk中输入正确即输出flag，可以直接跟算法，<del>但是我看不懂这些API</del></p>
+<p>于是找到生成<code>libadnjni.so</code>，IDA中看到其实是一个strcmp,变量获取下来转成字符串即可</p>
+<blockquote>
+<p>应该就是反编译看不出来函数体的就去lib里找吧…</p>
+</blockquote>
 
           
         
